@@ -5,7 +5,10 @@ import { insertionSort } from '../algorithms/sorting/insertion-sort/insertionSor
 import { mergeSort } from '../algorithms/sorting/merge-sort/mergeSort';
 import { quickSort } from '../algorithms/sorting/quick-sort/quickSort';
 import { SortingVisualizer } from '../components/visualization/SortingVisualizer';
-import { Button } from '../components/ui/Button';
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
 
 const ALGORITHMS = {
   'bubble': { name: 'バブルソート (Bubble Sort)', func: bubbleSort, desc: '隣り合う要素を比較し、順序が逆であれば入れ替える単純なアルゴリズム。' },
@@ -44,56 +47,63 @@ export const SortingPage: React.FC = () => {
           </p>
         </header>
 
-        <div className="bg-white rounded-xl shadow-lg p-6 space-y-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-gray-100 pb-6">
-            <div className="w-full md:w-auto">
-              <label className="block text-sm font-medium text-gray-700 mb-2">アルゴリズム選択</label>
-              <select 
-                value={selectedAlgo} 
-                onChange={(e) => setSelectedAlgo(e.target.value as AlgorithmKey)}
-                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 py-2 pl-3 pr-10 bg-gray-50 border"
-              >
-                {Object.entries(ALGORITHMS).map(([key, { name }]) => (
-                  <option key={key} value={key}>{name}</option>
-                ))}
-              </select>
+        <Card className="rounded-xl shadow-lg">
+          <CardHeader className="border-b border-gray-100 pb-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="w-full md:w-auto">
+                <label className="block text-sm font-medium text-gray-700 mb-2">アルゴリズム選択</label>
+                <Select 
+                  value={selectedAlgo} 
+                  onValueChange={(value) => setSelectedAlgo(value as AlgorithmKey)}
+                >
+                  <SelectTrigger className="w-full bg-white">
+                    <SelectValue placeholder="Select Algorithm" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(ALGORITHMS).map(([key, { name }]) => (
+                      <SelectItem key={key} value={key}>{name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="flex items-center gap-4 w-full md:w-auto">
+                   <div className="flex-1 md:flex-none">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">配列のサイズ: {arraySize}</label>
+                      <Slider 
+                          min={5} 
+                          max={50} 
+                          step={5}
+                          value={[arraySize]}
+                          onValueChange={(vals) => setArraySize(vals[0])}
+                          className="w-full py-4"
+                      />
+                   </div>
+                   <Button onClick={generateArray} variant="secondary" className="whitespace-nowrap h-10 mt-5">
+                      新しい配列
+                   </Button>
+              </div>
+            </div>
+          </CardHeader>
+
+          <CardContent className="space-y-6 pt-6">
+            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+              <h2 className="text-lg font-bold text-blue-900 mb-2">{ALGORITHMS[selectedAlgo].name}</h2>
+              <p className="text-blue-800 text-sm leading-relaxed">
+                  {ALGORITHMS[selectedAlgo].desc}
+              </p>
             </div>
 
-            <div className="flex items-center gap-4 w-full md:w-auto">
-                 <div className="flex-1 md:flex-none">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">配列のサイズ: {arraySize}</label>
-                    <input 
-                        type="range" 
-                        min="5" 
-                        max="50" 
-                        step="5"
-                        value={arraySize}
-                        onChange={(e) => setArraySize(Number(e.target.value))}
-                        className="w-full cursor-pointer accent-blue-600"
-                    />
-                 </div>
-                 <Button onClick={generateArray} variant="secondary" className="whitespace-nowrap h-10 mt-5">
-                    新しい配列
-                 </Button>
+            <div className="mt-8">
+              <SortingVisualizer 
+                  key={`${selectedAlgo}-${arrayVersion}`}
+                  algorithm={ALGORITHMS[selectedAlgo].func}
+                  initialArray={initialArray}
+                  algorithmName={ALGORITHMS[selectedAlgo].name}
+              />
             </div>
-          </div>
-
-          <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-            <h2 className="text-lg font-bold text-blue-900 mb-2">{ALGORITHMS[selectedAlgo].name}</h2>
-            <p className="text-blue-800 text-sm leading-relaxed">
-                {ALGORITHMS[selectedAlgo].desc}
-            </p>
-          </div>
-
-          <div className="mt-8">
-            <SortingVisualizer 
-                key={`${selectedAlgo}-${arrayVersion}`}
-                algorithm={ALGORITHMS[selectedAlgo].func}
-                initialArray={initialArray}
-                algorithmName={ALGORITHMS[selectedAlgo].name}
-            />
-          </div>
-        </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

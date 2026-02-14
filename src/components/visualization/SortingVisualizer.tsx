@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import type { AlgorithmStep, SortingAlgorithm } from '../../algorithms/types';
-import { Button } from '../ui/Button';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
 
 type SortingVisualizerProps = {
   algorithm: SortingAlgorithm;
@@ -149,13 +150,12 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
         <div className="flex items-center gap-3 bg-white p-3 rounded shadow-sm border border-gray-200">
             <span className="text-sm font-medium text-gray-700">速度:</span>
             <span className="text-xs text-gray-500">遅</span>
-            <input 
-                type="range" 
-                min="1" 
-                max="100" 
-                step="1" 
-                value={speedVal} 
-                onChange={(e) => setSpeedVal(Number(e.target.value))}
+            <Slider 
+                min={1} 
+                max={100} 
+                step={1} 
+                value={[speedVal]} 
+                onValueChange={(vals) => setSpeedVal(vals[0])}
                 className="w-32 cursor-pointer"
             />
             <span className="text-xs text-gray-500">速</span>
