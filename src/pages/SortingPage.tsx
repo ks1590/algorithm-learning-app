@@ -22,12 +22,14 @@ type AlgorithmKey = keyof typeof ALGORITHMS;
 
 export const SortingPage: React.FC = () => {
   const [selectedAlgo, setSelectedAlgo] = useState<AlgorithmKey>('bubble');
-  const [arraySize, setArraySize] = useState(20);
+  const [arraySize, setArraySize] = useState(250);
   const [initialArray, setInitialArray] = useState<number[]>(() => Array.from({ length: 20 }, () => Math.floor(Math.random() * 95) + 5));
   const [arrayVersion, setArrayVersion] = useState(0);
 
   const generateArray = useCallback(() => {
-    const newArray = Array.from({ length: arraySize }, () => Math.floor(Math.random() * 95) + 5);
+    // Generate values up to max(100, arraySize * 2) so visualization isn't flat for large N
+    const maxVal = Math.max(100, arraySize * 2);
+    const newArray = Array.from({ length: arraySize }, () => Math.floor(Math.random() * (maxVal - 5)) + 5);
     setInitialArray(newArray);
     setArrayVersion(v => v + 1);
   }, [arraySize]);
@@ -72,7 +74,7 @@ export const SortingPage: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">配列のサイズ: {arraySize}</label>
                       <Slider 
                           min={5} 
-                          max={50} 
+                          max={500} 
                           step={5}
                           value={[arraySize]}
                           onValueChange={(vals) => setArraySize(vals[0])}

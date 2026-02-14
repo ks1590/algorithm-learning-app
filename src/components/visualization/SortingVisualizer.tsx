@@ -113,7 +113,7 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
     <div className="flex flex-col items-center gap-8 w-full max-w-2xl mx-auto p-4">
       <h3 className="text-3xl font-black tracking-tight">{algorithmName}</h3>
       
-      <div className="flex items-end justify-center w-full h-80 bg-white rounded-xl border-2 border-border gap-1 p-4 shadow-[4px_4px_0_0_#000]">
+      <div className={`flex items-end justify-center w-full h-80 bg-white rounded-xl border-2 border-border p-4 shadow-[4px_4px_0_0_#000] ${array.length > 50 ? 'gap-0' : 'gap-1'}`}>
         {array.map((value, idx) => {
             const isComparing = comparing.includes(idx);
             const isSorted = sortedIndices.includes(idx);
@@ -129,7 +129,7 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
             return (
                 <div 
                     key={idx}
-                    className={`flex-1 transition-none ${bgClass}`}
+                    className={`flex-1 transition-none ${array.length > 50 ? '' : 'border-2 border-border'} ${bgClass}`}
                     style={{ height }}
                     title={value.toString()}
                 ></div>
