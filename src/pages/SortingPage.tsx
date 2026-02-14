@@ -40,20 +40,20 @@ export const SortingPage: React.FC = () => {
   }, [generateArray]);
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4">
+    <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-4xl mx-auto space-y-8">
         <header className="text-center space-y-4">
-          <h1 className="text-4xl font-extrabold text-blue-800 tracking-tight">アルゴリズム学習</h1>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h1 className="text-6xl font-black text-primary tracking-tight">ALGORITHM LEARNING</h1>
+          <p className="text-foreground font-medium max-w-2xl mx-auto bg-white border-2 border-border p-4 rounded-xl shadow-[4px_4px_0_0_#000]">
             視覚的にアルゴリズムの動作を理解しましょう。まずはソートアルゴリズムから。
           </p>
         </header>
 
-        <Card className="rounded-xl shadow-lg">
-          <CardHeader className="border-b border-gray-100 pb-6">
+        <Card className="rounded-2xl shadow-[8px_8px_0_0_#000]">
+          <CardHeader className="border-b-2 border-border pb-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="w-full md:w-auto">
-                <label className="block text-sm font-medium text-gray-700 mb-2">アルゴリズム選択</label>
+                <label className="block text-sm font-bold text-foreground mb-2">アルゴリズム選択</label>
                 <Select 
                   value={selectedAlgo} 
                   onValueChange={(value) => setSelectedAlgo(value as AlgorithmKey)}
@@ -71,7 +71,7 @@ export const SortingPage: React.FC = () => {
 
               <div className="flex items-center gap-4 w-full md:w-auto">
                    <div className="flex-1 md:flex-none">
-                      <label className="block text-sm font-medium text-gray-700 mb-1">配列のサイズ: {arraySize}</label>
+                      <label className="block text-sm font-bold text-foreground mb-1">配列のサイズ: {arraySize}</label>
                       <Slider 
                           min={5} 
                           max={500} 
@@ -89,9 +89,9 @@ export const SortingPage: React.FC = () => {
           </CardHeader>
 
           <CardContent className="space-y-6 pt-6">
-            <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-              <h2 className="text-lg font-bold text-blue-900 mb-2">{ALGORITHMS[selectedAlgo].name}</h2>
-              <p className="text-blue-800 text-sm leading-relaxed">
+            <div className="bg-muted p-6 rounded-xl border-2 border-border shadow-[4px_4px_0_0_#000]">
+              <h2 className="text-lg font-black text-foreground mb-2">{ALGORITHMS[selectedAlgo].name}</h2>
+              <p className="text-foreground font-medium leading-relaxed">
                   {ALGORITHMS[selectedAlgo].desc}
               </p>
             </div>

@@ -119,10 +119,10 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
             const isSorted = sortedIndices.includes(idx);
             
             // Color logic
-            let bgClass = 'bg-primary';
-            if (isFinished) bgClass = 'bg-green-400';
-            else if (isComparing) bgClass = 'bg-yellow-400';
-            else if (isSorted) bgClass = 'bg-green-200';
+            let bgClass = 'bg-primary'; // Pink
+            if (isFinished) bgClass = 'bg-accent'; // Teal
+            else if (isComparing) bgClass = 'bg-secondary'; // Yellow
+            else if (isSorted) bgClass = 'bg-accent'; // Teal
             
             const height = `${Math.max(5, (value / Math.max(...initialArray, 1)) * 100)}%`;
             
