@@ -11,11 +11,58 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 
 const ALGORITHMS = {
-  'bubble': { name: 'バブルソート (Bubble Sort)', func: bubbleSort, desc: '隣り合う要素を比較し、順序が逆であれば入れ替える単純なアルゴリズム。' },
-  'selection': { name: '選択ソート (Selection Sort)', func: selectionSort, desc: '未ソート部分から最小値を見つけ、未ソート部分の先頭と交換するアルゴリズム。' },
-  'insertion': { name: '挿入ソート (Insertion Sort)', func: insertionSort, desc: '整列済みの部分列に、新しい要素を適切な位置に挿入していくアルゴリズム。' },
-  'merge': { name: 'マージソート (Merge Sort)', func: mergeSort, desc: 'リストを分割し、整列しながら併合（マージ）する分割統治法のアルゴリズム。' },
-  'quick': { name: 'クイックソート (Quick Sort)', func: quickSort, desc: 'ピボットを選び、ピボットより小さい要素と大きい要素に分割する分割統治法のアルゴリズム。' },
+  'bubble': { 
+    name: 'バブルソート (Bubble Sort)', 
+    func: bubbleSort, 
+    desc: '隣り合う要素を比較し、順序が逆であれば入れ替える単純なアルゴリズムです。',
+    steps: [
+      '隣り合う要素を比較します',
+      '左の要素が右より大きければ交換します',
+      'これを端まで繰り返すと、最大値が右端に確定します',
+      '確定した部分を除いて、繰り返します'
+    ]
+  },
+  'selection': { 
+    name: '選択ソート (Selection Sort)', 
+    func: selectionSort, 
+    desc: '未ソート部分から最小値を見つけ、未ソート部分の先頭と交換するアルゴリズムです。',
+    steps: [
+      '未ソート部分から最小値を探します',
+      '見つけた最小値を、未ソート部分の先頭と交換します',
+      'ソート済み範囲を1つ広げます',
+      '全てがソートされるまで繰り返します'
+    ]
+  },
+  'insertion': { 
+    name: '挿入ソート (Insertion Sort)', 
+    func: insertionSort, 
+    desc: '整列済みの部分列に、新しい要素を適切な位置に挿入していくアルゴリズムです。',
+    steps: [
+      '未ソート部分の先頭の要素を取り出します',
+      'ソート済み部分の適切な位置にその要素を挿入します',
+      'これを未ソート部分がなくなるまで繰り返します'
+    ]
+  },
+  'merge': { 
+    name: 'マージソート (Merge Sort)', 
+    func: mergeSort, 
+    desc: 'リストを分割し、整列しながら併合（マージ）する分割統治法のアルゴリズムです。',
+    steps: [
+      'リストを半分に分割し続けます（要素が1つになるまで）',
+      '分割されたリストを、順序を整えながら併合（マージ）します',
+      '全てが1つのリストにまとまるまで繰り返します'
+    ]
+  },
+  'quick': { 
+    name: 'クイックソート (Quick Sort)', 
+    func: quickSort, 
+    desc: 'ピボットを選び、ピボットより小さい要素と大きい要素に分割する分割統治法のアルゴリズムです。',
+    steps: [
+      '基準となる要素（ピボット）を1つ選びます',
+      'ピボットより小さい値を左に、大きい値を右に移動します',
+      '分割された左右のリストに対して、同様に繰り返します（再帰）'
+    ]
+  },
 };
 
 type AlgorithmKey = keyof typeof ALGORITHMS;
@@ -90,10 +137,18 @@ export const SortingPage: React.FC = () => {
 
           <CardContent className="space-y-6 pt-6">
             <div className="bg-muted p-6 rounded-xl border-2 border-border shadow-[4px_4px_0_0_#000]">
-              <h2 className="text-lg font-black text-foreground mb-2">{ALGORITHMS[selectedAlgo].name}</h2>
-              <p className="text-foreground font-medium leading-relaxed">
+              <h2 className="text-lg font-black text-foreground mb-4">{ALGORITHMS[selectedAlgo].name}</h2>
+              <p className="text-foreground font-medium leading-relaxed mb-4">
                   {ALGORITHMS[selectedAlgo].desc}
               </p>
+              <div className="bg-white p-4 rounded-lg border-2 border-border">
+                <h3 className="font-bold text-foreground mb-2">手順:</h3>
+                <ol className="list-decimal list-inside space-y-2 text-foreground font-medium">
+                    {ALGORITHMS[selectedAlgo].steps.map((step, idx) => (
+                        <li key={idx} className="pl-1 marker:font-bold">{step}</li>
+                    ))}
+                </ol>
+              </div>
             </div>
 
             <div className="mt-8">
