@@ -75,7 +75,7 @@ export function TreeVisualizer({ root, activeNode, visitedNodes }: TreeVisualize
   return (
     <div className="flex justify-center w-full overflow-auto p-4 border rounded-lg min-h-[400px]">
         <svg width={totalWidth} height={totalHeight} viewBox={`0 0 ${totalWidth} ${totalHeight}`}>
-            {links.map((link, i) => (
+            {links.map((link) => (
                 <motion.line
                     key={`edge-${link.source.data.value}-${link.target.data.value}`}
                     initial={{ pathLength: 0, opacity: 0 }}
