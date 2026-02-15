@@ -139,10 +139,8 @@ export const SortingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
       <div className={`mx-auto space-y-8 transition-all duration-300 ${isComparisonMode ? 'max-w-[95vw]' : 'max-w-6xl'}`}>
         <header className="text-center space-y-4">
-          <h1 className="text-6xl font-black text-primary tracking-tight">ALGORITHM LEARNING</h1>
           <div className="flex justify-center items-center gap-4">
              <div className="flex items-center space-x-2 bg-white p-2 rounded-lg border-2 border-border shadow-[4px_4px_0_0_#000]">
                 <span className="text-sm font-bold text-foreground">単体モード</span>
@@ -299,6 +297,5 @@ export const SortingPage: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
   );
 };
