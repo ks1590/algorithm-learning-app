@@ -68,6 +68,7 @@ export function SearchVisualizer() {
   const [currentStep, setCurrentStep] = useState<SearchStep | BinarySearchStep | JumpSearchStep | InterpolationSearchStep | null>(null);
   const [foundIndex, setFoundIndex] = useState<number | null>(null);
   const [speed, setSpeed] = useState(500);
+  const [elementCount, setElementCount] = useState(20);
   const [message, setMessage] = useState('');
   
   // Refs for controlling the search loop
@@ -80,7 +81,7 @@ export function SearchVisualizer() {
 
   useEffect(() => {
     generateArray();
-  }, []);
+  }, [elementCount]); // Regenerate when count changes
 
   // When switching to binary search, sort the array
   useEffect(() => {
@@ -91,7 +92,15 @@ export function SearchVisualizer() {
   }, [algorithm]);
 
   const generateArray = () => {
-    const newArray = Array.from({ length: 20 }, () => Math.floor(Math.random() * 100));
+    const uniqueNumbers = new Set<number>();
+    const maxVal = Math.max(100, elementCount * 3); // Ensure enough range for unique numbers
+    
+    while (uniqueNumbers.size < elementCount) {
+        uniqueNumbers.add(Math.floor(Math.random() * maxVal));
+    }
+    
+    const newArray = Array.from(uniqueNumbers);
+    
     if (algorithm === 'binary' || algorithm === 'jump' || algorithm === 'interpolation') {
         newArray.sort((a, b) => a - b);
     }
@@ -321,15 +330,29 @@ export function SearchVisualizer() {
                         </Button>
                     </div>
 
-                    <div className="space-y-2">
-                        <label className="text-sm font-bold">速度 (ms): {speed}</label>
-                         <Slider 
-                            value={[speed]} 
-                            onValueChange={(val) => setSpeed(val[0])} 
-                            min={50} 
-                            max={1000} 
-                            step={50} 
-                        />
+                    <div className="space-y-4">
+                        <div className="space-y-2">
+                            <label className="text-sm font-bold">要素数: {elementCount}</label>
+                            <Slider 
+                                value={[elementCount]} 
+                                onValueChange={(val) => setElementCount(val[0])} 
+                                min={10} 
+                                max={100} 
+                                step={1} 
+                                disabled={isSearching}
+                            />
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm font-bold">速度 (ms): {speed}</label>
+                            <Slider 
+                                value={[speed]} 
+                                onValueChange={(val) => setSpeed(val[0])} 
+                                min={50} 
+                                max={1000} 
+                                step={50} 
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
