@@ -5,7 +5,6 @@ import { bfs } from '@/algorithms/tree/bfs';
 import { dfsInOrder, dfsPreOrder, dfsPostOrder } from '@/algorithms/tree/dfs';
 import { Button } from '@/components/ui/button';
 import { TreeVisualizer } from '@/components/TreeVisualizer';
-import { Navigation } from '@/components/Navigation';
 
 export function TreePage() {
     const [root, setRoot] = useState<TreeNode | null>(null);
@@ -50,8 +49,6 @@ export function TreePage() {
 
     return (
         <div className="container mx-auto p-4">
-            <h1 className="text-3xl font-bold mb-4">Tree Algorithms Visualization</h1>
-            <Navigation />
             
             <div className="flex gap-4 my-4">
                 <Button onClick={generateTree} disabled={isRunning}>Generate Tree</Button>
