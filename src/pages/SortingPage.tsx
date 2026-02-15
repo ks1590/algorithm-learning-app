@@ -113,7 +113,11 @@ export const SortingPage: React.FC = () => {
   const addSlot = () => {
     if (slots.length >= 3) return;
     const newId = Math.random().toString(36).substr(2, 9);
-    setSlots([...slots, { id: newId, algo: 'bubble' }]);
+    
+    const usedAlgos = slots.map(s => s.algo);
+    const availableAlgo = (Object.keys(ALGORITHMS) as AlgorithmKey[]).find(algo => !usedAlgos.includes(algo)) || 'bubble';
+
+    setSlots([...slots, { id: newId, algo: availableAlgo }]);
   };
 
   const removeSlot = (id: string) => {
@@ -263,9 +267,14 @@ export const SortingPage: React.FC = () => {
                                         <SelectValue placeholder="Select Algorithm" />
                                     </SelectTrigger>
                                     <SelectContent>
-                                        {Object.entries(ALGORITHMS).map(([key, { name }]) => (
-                                        <SelectItem key={key} value={key}>{name}</SelectItem>
-                                        ))}
+                                        {Object.entries(ALGORITHMS).map(([key, { name }]) => {
+                                            const isSelected = slots.some(s => s.algo === key && s.id !== slot.id);
+                                            return (
+                                                <SelectItem key={key} value={key} disabled={isSelected}>
+                                                    {name} {isSelected && '(選択済み)'}
+                                                </SelectItem>
+                                            );
+                                        })}
                                     </SelectContent>
                                     </Select>
                                     <Button 

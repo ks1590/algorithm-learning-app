@@ -155,9 +155,9 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
     <div className={`flex flex-col items-center gap-4 w-full mx-auto py-4 ${className}`}>
       <div className="flex justify-between items-center w-full px-4">
         {!hideControls && <h3 className="text-3xl font-black tracking-tight">{algorithmName}</h3>}
-        {elapsedTime !== null && (
+        {(isSorting || elapsedTime !== null) && (
             <div className="bg-black text-white px-3 py-1 rounded-md font-mono text-sm shadow-md ml-auto">
-                Time: {(elapsedTime / 1000).toFixed(3)}s
+                {isSorting ? '計測中...' : `Time: ${(elapsedTime! / 1000).toFixed(3)} 秒`}
             </div>
         )}
       </div>
