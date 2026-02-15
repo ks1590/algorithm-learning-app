@@ -3,6 +3,7 @@ import { TreeNode } from '../algorithms/tree/TreeNode';
 import { motion } from "framer-motion"
 import * as d3 from 'd3-hierarchy';
 import { useMemo } from 'react';
+import { AppColors } from '@/utils/theme';
 
 interface TreeVisualizerProps {
   root: TreeNode | null;
@@ -98,8 +99,8 @@ export function TreeVisualizer({ root, activeNode, visitedNodes }: TreeVisualize
                             cx={node.x}
                             cy={node.y}
                             r={20}
-                            fill={isActive ? "#FFD23F" : isVisited ? "#C689D8" : "#ffffff"}
-                            stroke={isActive ? "#f3c326ff" : isVisited ? "#9333EA" : "#000000"}
+                            fill={isActive ? AppColors.tree.node.active.fill : isVisited ? AppColors.tree.node.visited.fill : AppColors.tree.node.default.fill}
+                            stroke={isActive ? AppColors.tree.node.active.stroke : isVisited ? AppColors.tree.node.visited.stroke : AppColors.tree.node.default.stroke}
                             strokeWidth="2"
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}

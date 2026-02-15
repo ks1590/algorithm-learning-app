@@ -9,6 +9,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Play, RotateCcw, StopCircle } from 'lucide-react';
+import { AppColors } from '@/utils/theme';
 
 const TREE_ALGORITHMS = {
   'bfs': {
@@ -185,7 +186,7 @@ export function TreePage() {
                                 </Select>
                             </div>
 
-                            <div className="bg-muted p-4 rounded-lg border-2 border-border">
+                            <div className="p-4 rounded-lg border-2 border-border" style={{ backgroundColor: AppColors.descriptionBox.background }}>
                                 <h2 className="font-bold text-foreground mb-2">{TREE_ALGORITHMS[selectedAlgo].name}</h2>
                                 <p className="text-sm text-foreground mb-2">{TREE_ALGORITHMS[selectedAlgo].desc}</p>
                                 <ol className="list-decimal list-inside text-sm space-y-1">
