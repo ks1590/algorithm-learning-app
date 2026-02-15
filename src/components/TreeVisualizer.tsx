@@ -1,6 +1,8 @@
 
 import { TreeNode } from '../algorithms/tree/TreeNode';
 import { motion } from "framer-motion"
+import * as d3 from 'd3-hierarchy';
+import { useMemo } from 'react';
 
 interface TreeVisualizerProps {
   root: TreeNode | null;
@@ -11,63 +13,111 @@ interface TreeVisualizerProps {
 export function TreeVisualizer({ root, activeNode, visitedNodes }: TreeVisualizerProps) {
   if (!root) return <div className="text-center p-8">No tree generated</div>;
 
-  // First pass: Collect all nodes and edges
-  const nodes: React.ReactNode[] = [];
-  const edges: React.ReactNode[] = [];
+  const { nodes, links, totalWidth, totalHeight } = useMemo(() => {
+    // 1. Convert to D3 hierarchy
+    const hierarchyRoot = d3.hierarchy(root, (d) => {
+        const children = [];
+        if (d.left) children.push(d.left);
+        if (d.right) children.push(d.right);
+        return children.length > 0 ? children : null;
+    });
 
-  const traverse = (node: TreeNode, x: number, y: number, level: number, parentX?: number, parentY?: number) => {
-    const isVisited = visitedNodes.has(node);
-    const isActive = activeNode === node;
+    // 2. Configure tree layout
+    // nodeSize allows us to specify fixed spacing between nodes
+    const nodeWidth = 60; // Horizontal space
+    const nodeHeight = 80; // Vertical space
+    
+    const treeLayout = d3.tree<TreeNode>()
+        .nodeSize([nodeWidth, nodeHeight]) 
+        .separation((a, b) => {
+            // Give a bit more space for non-siblings to keep branches distinct
+            return a.parent === b.parent ? 1.2 : 1.5; 
+        });
+    
+    treeLayout(hierarchyRoot);
 
-    // Line to parent
-    if (parentX !== undefined && parentY !== undefined) {
-      edges.push(
-        <motion.line
-          key={`edge-${node.value}`}
-          initial={{ pathLength: 0 }}
-          animate={{ pathLength: 1 }}
-          x1={parentX}
-          y1={parentY}
-          x2={x}
-          y2={y}
-          stroke="gray"
-          strokeWidth="2"
-        />
-      );
-    }
+    // 3. Calculate bounds to shift chart into view
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let maxY = -Infinity;
 
-    // Node circle and text
-    nodes.push(
-      <g key={`node-${node.value}`}>
-        <motion.circle
-          cx={x}
-          cy={y}
-          r="20"
-          fill={isActive ? "#ef4444" : isVisited ? "#3b82f6" : "#ffffff"}
-          stroke={isActive ? "#b91c1c" : isVisited ? "#1d4ed8" : "#000000"}
-          strokeWidth="2"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.3 }}
-        />
-        <text x={x} y={y} dy=".3em" textAnchor="middle" fill={isActive || isVisited ? "white" : "black"}>
-          {node.value}
-        </text>
-      </g>
-    );
+    hierarchyRoot.each((node) => {
+        if (node.x < minX) minX = node.x;
+        if (node.x > maxX) maxX = node.x;
+        if (node.y > maxY) maxY = node.y;
+    });
 
-    // Recursive rendering of children
-    if (node.left) traverse(node.left, x - 100 / (level + 1), y + 60, level + 1, x, y);
-    if (node.right) traverse(node.right, x + 100 / (level + 1), y + 60, level + 1, x, y);
-  };
+    const padding = 50;
+    const width = maxX - minX + padding * 2;
+    const height = maxY + padding * 2;
+    
+    // Shift all nodes so minX is at padding
+    const xShift = -minX + padding;
+    const yShift = padding;
 
-  traverse(root, 400, 40, 0);
+    return {
+        nodes: hierarchyRoot.descendants().map(d => ({
+            ...d,
+            x: d.x + xShift,
+            y: d.y + yShift
+        })),
+        links: hierarchyRoot.links().map(link => ({
+            source: { ...link.source, x: link.source.x + xShift, y: link.source.y + yShift },
+            target: { ...link.target, x: link.target.x + xShift, y: link.target.y + yShift }
+        })),
+        totalWidth: width,
+        totalHeight: height
+    };
+  }, [root]);
+
 
   return (
     <div className="flex justify-center overflow-auto p-4 border rounded-lg min-h-[400px]">
-        <svg width="800" height="600" viewBox="0 0 800 600">
-            {edges}
-            {nodes}
+        <svg width={totalWidth} height={totalHeight} viewBox={`0 0 ${totalWidth} ${totalHeight}`}>
+            {links.map((link, i) => (
+                <motion.line
+                    key={`edge-${link.source.data.value}-${link.target.data.value}`}
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    animate={{ pathLength: 1, opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                    x1={link.source.x}
+                    y1={link.source.y}
+                    x2={link.target.x}
+                    y2={link.target.y}
+                    stroke="gray"
+                    strokeWidth="2"
+                />
+            ))}
+            {nodes.map((node) => {
+                const isVisited = visitedNodes.has(node.data);
+                const isActive = activeNode === node.data;
+
+                return (
+                    <g key={`node-${node.data.value}`}>
+                        <motion.circle
+                            cx={node.x}
+                            cy={node.y}
+                            r={20}
+                            fill={isActive ? "#ef4444" : isVisited ? "#3b82f6" : "#ffffff"}
+                            stroke={isActive ? "#b91c1c" : isVisited ? "#1d4ed8" : "#000000"}
+                            strokeWidth="2"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: 0.3 }}
+                        />
+                        <text 
+                            x={node.x} 
+                            y={node.y} 
+                            dy=".3em" 
+                            textAnchor="middle" 
+                            fill={isActive || isVisited ? "white" : "black"}
+                            className="text-sm font-bold pointer-events-none"
+                        >
+                            {node.data.value}
+                        </text>
+                    </g>
+                );
+            })}
         </svg>
     </div>
   );
