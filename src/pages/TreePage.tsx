@@ -211,7 +211,7 @@ export function TreePage() {
                                         className="flex-1"
                                     />
                                     <Button onClick={() => generateRandomTree(nodeCount)} variant="secondary" disabled={isRunning}>
-                                        新しい木を生成
+                                        新しいツリーを生成
                                     </Button>
                                 </div>
                             </div>
