@@ -140,7 +140,7 @@ export const SortingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background py-8 px-4">
-      <div className="max-w-6xl mx-auto space-y-8">
+      <div className={`mx-auto space-y-8 transition-all duration-300 ${isComparisonMode ? 'max-w-[95vw]' : 'max-w-6xl'}`}>
         <header className="text-center space-y-4">
           <h1 className="text-6xl font-black text-primary tracking-tight">ALGORITHM LEARNING</h1>
           <div className="flex justify-center items-center gap-4">
@@ -205,7 +205,7 @@ export const SortingPage: React.FC = () => {
             {isComparisonMode ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {slots.map((slot) => (
-                        <div key={slot.id} className="flex flex-col gap-4 p-4 bg-white rounded-xl border-2 border-border shadow-[4px_4px_0_0_#000] relative">
+                        <div key={slot.id} className="flex flex-col gap-4 p-4 bg-white rounded-xl border-2 border-border relative">
                             <div className="flex justify-between items-center">
                                 <Select 
                                   value={slot.algo} 
@@ -239,6 +239,7 @@ export const SortingPage: React.FC = () => {
                                 algorithmName={ALGORITHMS[slot.algo].name}
                                 speed={globalSpeed}
                                 hideControls={true}
+                                removeShadow={true}
                                 className="p-0 border-none shadow-none"
                             />
                         </div>
@@ -270,7 +271,7 @@ export const SortingPage: React.FC = () => {
                         </Select>
                     </div>
 
-                    <div className="bg-muted p-6 rounded-xl border-2 border-border shadow-[4px_4px_0_0_#000]">
+                    <div className="bg-muted p-6 rounded-xl border-2 border-border">
                     <h2 className="text-lg font-black text-foreground mb-4">{ALGORITHMS[selectedAlgo].name}</h2>
                     <p className="text-foreground font-medium leading-relaxed mb-4">
                         {ALGORITHMS[selectedAlgo].desc}

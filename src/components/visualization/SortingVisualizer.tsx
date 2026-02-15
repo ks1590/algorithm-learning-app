@@ -16,6 +16,7 @@ type SortingVisualizerProps = {
   speed?: number; // External speed control
   hideControls?: boolean; // Hide local controls for comparison mode
   className?: string;
+  removeShadow?: boolean;
 };
 
 export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisualizerProps>(({ 
@@ -24,7 +25,8 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
   algorithmName,
   speed,
   hideControls = false,
-  className
+  className,
+  removeShadow = false
 }, ref) => {
   const [array, setArray] = useState<number[]>([...initialArray]);
   const [comparing, setComparing] = useState<[number, number]>([-1, -1]);
@@ -131,10 +133,10 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
 
 
   return (
-    <div className={`flex flex-col items-center gap-4 w-full max-w-2xl mx-auto p-4 ${className}`}>
+    <div className={`flex flex-col items-center gap-4 w-full mx-auto py-4 ${className}`}>
       {!hideControls && <h3 className="text-3xl font-black tracking-tight">{algorithmName}</h3>}
       
-      <div className={`flex items-end justify-center w-full h-64 bg-white rounded-xl border-2 border-border p-4 shadow-[4px_4px_0_0_#000] ${array.length > 50 ? 'gap-0' : 'gap-1'}`}>
+      <div className={`flex items-end justify-center w-full h-64 bg-white rounded-xl border-2 border-border p-4 ${array.length > 50 ? 'gap-0' : 'gap-1'}`}>
         {array.map((value, idx) => {
             const isComparing = comparing.includes(idx);
             const isSorted = sortedIndices.includes(idx);
