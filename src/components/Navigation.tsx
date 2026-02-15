@@ -17,6 +17,11 @@ export function Navigation() {
           Tree
         </Button>
       </Link>
+      <Link to="/search">
+        <Button variant={location.pathname === '/search' ? 'default' : 'outline'}>
+          Search
+        </Button>
+      </Link>
     </nav>
   );
 }
