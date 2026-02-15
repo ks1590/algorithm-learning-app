@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Slider } from '@/components/ui/slider';
 import { Switch } from "@/components/ui/switch"
 import { Plus, Trash2, Play, RotateCcw, StopCircle } from 'lucide-react';
+import { AppColors } from '@/utils/theme';
 
 const ALGORITHMS = {
   // ... (ALGORITHMS object remains unchanged)
@@ -158,7 +159,7 @@ export const SortingPage: React.FC = () => {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex flex-wrap items-center gap-6 w-full">
                    {isComparisonMode && (
-                       <div className="flex items-center gap-4 bg-muted p-2 rounded-lg border-2 border-border">
+                       <div className="flex items-center gap-4 bg-muted p-2 rounded-lg border-2 border-border" style={{ backgroundColor: AppColors.descriptionBox.background }}>
                            <Button onClick={isRunning ? stopAll : startAll} size="icon" className="h-10 w-10">
                                {isRunning ? <StopCircle className="h-5 w-5" /> : <Play className="h-5 w-5" />}
                            </Button>
@@ -269,7 +270,7 @@ export const SortingPage: React.FC = () => {
                         </Select>
                     </div>
 
-                    <div className="bg-muted p-6 rounded-xl border-2 border-border">
+                    <div className="bg-muted p-6 rounded-xl border-2 border-border"   style={{ backgroundColor: AppColors.descriptionBox.background }}>
                     <h2 className="text-lg font-black text-foreground mb-4">{ALGORITHMS[selectedAlgo].name}</h2>
                     <p className="text-foreground font-medium leading-relaxed mb-4">
                         {ALGORITHMS[selectedAlgo].desc}

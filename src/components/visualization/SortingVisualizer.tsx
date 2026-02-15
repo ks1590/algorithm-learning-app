@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
+import { useState, useEffect, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
 import type { AlgorithmStep, SortingAlgorithm } from '../../algorithms/types';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -26,7 +26,7 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
   speed,
   hideControls = false,
   className,
-  removeShadow = false
+
 }, ref) => {
   const [array, setArray] = useState<number[]>([...initialArray]);
   const [comparing, setComparing] = useState<[number, number]>([-1, -1]);
