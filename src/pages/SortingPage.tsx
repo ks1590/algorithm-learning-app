@@ -11,6 +11,7 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from "@/components/ui/switch"
+import { Navigation } from '../components/Navigation';
 import { Plus, Trash2, Play, RotateCcw, StopCircle } from 'lucide-react';
 
 const ALGORITHMS = {
@@ -143,6 +144,9 @@ export const SortingPage: React.FC = () => {
       <div className={`mx-auto space-y-8 transition-all duration-300 ${isComparisonMode ? 'max-w-[95vw]' : 'max-w-6xl'}`}>
         <header className="text-center space-y-4">
           <h1 className="text-6xl font-black text-primary tracking-tight">ALGORITHM LEARNING</h1>
+          <div className="flex justify-center mb-4">
+             <Navigation />
+          </div>
           <div className="flex justify-center items-center gap-4">
              <div className="flex items-center space-x-2 bg-white p-2 rounded-lg border-2 border-border shadow-[4px_4px_0_0_#000]">
                 <span className="text-sm font-bold text-foreground">単体モード</span>
