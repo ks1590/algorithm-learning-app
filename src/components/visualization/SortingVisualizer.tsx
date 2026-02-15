@@ -17,6 +17,7 @@ type SortingVisualizerProps = {
   hideControls?: boolean; // Hide local controls for comparison mode
   className?: string;
   removeShadow?: boolean;
+  onFinish?: (elapsedTime: number) => void;
 };
 
 export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisualizerProps>(({ 
@@ -26,7 +27,7 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
   speed,
   hideControls = false,
   className,
-
+  onFinish,
 }, ref) => {
   const [array, setArray] = useState<number[]>([...initialArray]);
   const [comparing, setComparing] = useState<[number, number]>([-1, -1]);
@@ -34,12 +35,14 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
   const [isSorting, setIsSorting] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [localSpeed, setLocalSpeed] = useState(50);
+  const [elapsedTime, setElapsedTime] = useState<number | null>(null);
   
   // Use external speed if provided, otherwise local
   const currentSpeed = speed !== undefined ? speed : localSpeed;
   
   const generatorRef = useRef<Generator<AlgorithmStep, void, unknown> | null>(null);
   const intervalRef = useRef<number | null>(null);
+  const startTimeRef = useRef<number | null>(null);
 
   const reset = useCallback(() => {
     setIsSorting(false);
@@ -51,7 +54,9 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
     setComparing([-1, -1]);
     setSortedIndices([]);
     setIsFinished(false);
+    setElapsedTime(null);
     generatorRef.current = null;
+    startTimeRef.current = null;
   }, [initialArray]);
 
   const start = useCallback(() => {
@@ -62,11 +67,16 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
       setComparing([-1, -1]);
       setSortedIndices([]);
       setIsFinished(false);
+      setElapsedTime(null);
       generatorRef.current = null;
     }
     
     if (!generatorRef.current) {
         generatorRef.current = algorithm(currentArray);
+    }
+    
+    if (!startTimeRef.current) {
+        startTimeRef.current = performance.now();
     }
     
     setIsSorting(true);
@@ -99,6 +109,15 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
         clearInterval(intervalRef.current);
         intervalRef.current = null;
       }
+      
+      const endTime = performance.now();
+      if (startTimeRef.current) {
+          const duration = endTime - startTimeRef.current;
+          setElapsedTime(duration);
+          if (onFinish) {
+              onFinish(duration);
+          }
+      }
       return;
     }
     
@@ -107,7 +126,7 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
       setComparing(value.comparing);
       setSortedIndices(value.sortedIndices);
     }
-  }, []);
+  }, [onFinish]);
 
   useEffect(() => {
     if (isSorting) {
@@ -134,25 +153,32 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
 
   return (
     <div className={`flex flex-col items-center gap-4 w-full mx-auto py-4 ${className}`}>
-      {!hideControls && <h3 className="text-3xl font-black tracking-tight">{algorithmName}</h3>}
+      <div className="flex justify-between items-center w-full px-4">
+        {!hideControls && <h3 className="text-3xl font-black tracking-tight">{algorithmName}</h3>}
+        {elapsedTime !== null && (
+            <div className="bg-black text-white px-3 py-1 rounded-md font-mono text-sm shadow-md ml-auto">
+                Time: {(elapsedTime / 1000).toFixed(3)}s
+            </div>
+        )}
+      </div>
       
-      <div className={`flex items-end justify-center w-full h-64 bg-white rounded-xl border-2 border-border p-4 ${array.length > 50 ? 'gap-0' : 'gap-1'}`}>
+      <div className={`flex items-end justify-center w-full h-64 bg-white rounded-xl border-2 border-border p-4`}>
         {array.map((value, idx) => {
             const isComparing = comparing.includes(idx);
             const isSorted = sortedIndices.includes(idx);
             
             // Color logic
-            let bgClass = 'bg-primary'; // Pink
-            if (isFinished) bgClass = 'bg-accent'; // Teal
+            let bgClass = 'bg-muted'; // Periwinkle
+            if (isFinished) bgClass = 'bg-primary'; // Pink
             else if (isComparing) bgClass = 'bg-secondary'; // Yellow
-            else if (isSorted) bgClass = 'bg-accent'; // Teal
+            else if (isSorted) bgClass = 'bg-primary'; // Pink
             
             const height = `${Math.max(5, (value / Math.max(...initialArray, 1)) * 100)}%`;
             
             return (
                 <div 
                     key={idx}
-                    className={`flex-1 transition-none ${array.length > 50 ? '' : 'border-2 border-border'} ${bgClass}`}
+                    className={`flex-1 transition-none ${bgClass}`}
                     style={{ height }}
                     title={value.toString()}
                 ></div>
