@@ -98,8 +98,8 @@ export function TreeVisualizer({ root, activeNode, visitedNodes }: TreeVisualize
                             cx={node.x}
                             cy={node.y}
                             r={20}
-                            fill={isActive ? "#ef4444" : isVisited ? "#3b82f6" : "#ffffff"}
-                            stroke={isActive ? "#b91c1c" : isVisited ? "#1d4ed8" : "#000000"}
+                            fill={isActive ? "#FFD23F" : isVisited ? "#C689D8" : "#ffffff"}
+                            stroke={isActive ? "#f3c326ff" : isVisited ? "#9333EA" : "#000000"}
                             strokeWidth="2"
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
