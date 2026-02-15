@@ -132,8 +132,11 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
     if (isSorting) {
       // Calculate delay based on speedVal
       // speedVal 1 (slow) -> 100 (fast)
-      // Delay: 1 -> 500ms, 100 -> 10ms
-      const delay = Math.max(10, 510 - (currentSpeed * 5));
+      // New Logic: 1 -> 200ms, 100 -> 1ms
+      // Linear interpolation: delay = 200 - ((currentSpeed - 1) * (199 / 99))
+      const maxDelay = 200;
+      const minDelay = 1;
+      const delay = Math.max(minDelay, maxDelay - ((currentSpeed - 1) * ((maxDelay - minDelay) / 99)));
       
       intervalRef.current = window.setInterval(step, delay);
     } else {
@@ -157,7 +160,7 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
         {!hideControls && <h3 className="text-3xl font-black tracking-tight">{algorithmName}</h3>}
         {(isSorting || elapsedTime !== null) && (
             <div className="bg-black text-white px-3 py-1 rounded-md font-mono text-sm shadow-md ml-auto">
-                {isSorting ? '計測中...' : `Time: ${(elapsedTime! / 1000).toFixed(3)} 秒`}
+                {isSorting ? '計測中...' : `Time: ${(elapsedTime! / 1000).toFixed(3)}秒`}
             </div>
         )}
       </div>

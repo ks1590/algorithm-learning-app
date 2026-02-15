@@ -236,7 +236,7 @@ export const SortingPage: React.FC = () => {
                       <div className="flex-1">
                           <label className="block text-sm font-bold text-foreground mb-1">配列のサイズ: {arraySize}</label>
                           <Slider 
-                              min={50} 
+                              min={5} 
                               max={200} 
                               step={5}
                               value={[arraySize]}
