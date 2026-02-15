@@ -1,29 +1,42 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
 import type { AlgorithmStep, SortingAlgorithm } from '../../algorithms/types';
-import { Button } from '../ui/Button';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+
+export type SortingVisualizerHandle = {
+  start: () => void;
+  stop: () => void;
+  reset: () => void;
+};
 
 type SortingVisualizerProps = {
   algorithm: SortingAlgorithm;
   initialArray: number[];
   algorithmName: string;
+  speed?: number; // External speed control
+  hideControls?: boolean; // Hide local controls for comparison mode
+  className?: string;
+  removeShadow?: boolean;
 };
 
-export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({ 
+export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisualizerProps>(({ 
   algorithm, 
   initialArray, 
-  algorithmName 
-}) => {
+  algorithmName,
+  speed,
+  hideControls = false,
+  className,
+  removeShadow = false
+}, ref) => {
   const [array, setArray] = useState<number[]>([...initialArray]);
   const [comparing, setComparing] = useState<[number, number]>([-1, -1]);
   const [sortedIndices, setSortedIndices] = useState<number[]>([]);
   const [isSorting, setIsSorting] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
-  // Speed: delay in ms. Lower is faster.
-  // Range slider: 1 (slow) to 100 (fast).
-  // Map 1-100 to delay.
-  // Delay = 500 - (value * 5) ?
-  // If value=1, delay=495. value=100, delay=0.
-  const [speedVal, setSpeedVal] = useState(50);
+  const [localSpeed, setLocalSpeed] = useState(50);
+  
+  // Use external speed if provided, otherwise local
+  const currentSpeed = speed !== undefined ? speed : localSpeed;
   
   const generatorRef = useRef<Generator<AlgorithmStep, void, unknown> | null>(null);
   const intervalRef = useRef<number | null>(null);
@@ -41,7 +54,7 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
     generatorRef.current = null;
   }, [initialArray]);
 
-  const start = () => {
+  const start = useCallback(() => {
     let currentArray = array;
     if (isFinished) {
       currentArray = [...initialArray];
@@ -57,15 +70,22 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
     }
     
     setIsSorting(true);
-  };
+  }, [array, isFinished, initialArray, algorithm]);
 
-  const stop = () => {
+  const stop = useCallback(() => {
     setIsSorting(false);
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
-  };
+  }, []);
+
+  // Expose methods to parent
+  useImperativeHandle(ref, () => ({
+    start,
+    stop,
+    reset
+  }));
 
   const step = useCallback(() => {
     if (!generatorRef.current) return;
@@ -94,7 +114,7 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
       // Calculate delay based on speedVal
       // speedVal 1 (slow) -> 100 (fast)
       // Delay: 1 -> 500ms, 100 -> 10ms
-      const delay = Math.max(10, 510 - (speedVal * 5));
+      const delay = Math.max(10, 510 - (currentSpeed * 5));
       
       intervalRef.current = window.setInterval(step, delay);
     } else {
@@ -104,31 +124,35 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
     return () => {
         if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isSorting, speedVal, step]);
+  }, [isSorting, currentSpeed, step]);
 
+  // Sync with initialArray changes
+  useEffect(() => {
+      reset();
+  }, [initialArray, reset]);
 
 
   return (
-    <div className="flex flex-col items-center gap-6 w-full max-w-2xl mx-auto p-4">
-      <h3 className="text-2xl font-bold">{algorithmName}</h3>
+    <div className={`flex flex-col items-center gap-4 w-full mx-auto py-4 ${className}`}>
+      {!hideControls && <h3 className="text-3xl font-black tracking-tight">{algorithmName}</h3>}
       
-      <div className="flex items-end justify-center w-full h-80 bg-gray-50 rounded-lg p-4 border border-gray-200 gap-1">
+      <div className={`flex items-end justify-center w-full h-64 bg-white rounded-xl border-2 border-border p-4 ${array.length > 50 ? 'gap-0' : 'gap-1'}`}>
         {array.map((value, idx) => {
             const isComparing = comparing.includes(idx);
             const isSorted = sortedIndices.includes(idx);
             
             // Color logic
-            let bgClass = 'bg-blue-400';
-            if (isFinished) bgClass = 'bg-green-500';
-            else if (isComparing) bgClass = 'bg-yellow-400';
-            else if (isSorted) bgClass = 'bg-green-300';
+            let bgClass = 'bg-primary'; // Pink
+            if (isFinished) bgClass = 'bg-accent'; // Teal
+            else if (isComparing) bgClass = 'bg-secondary'; // Yellow
+            else if (isSorted) bgClass = 'bg-accent'; // Teal
             
             const height = `${Math.max(5, (value / Math.max(...initialArray, 1)) * 100)}%`;
             
             return (
                 <div 
                     key={idx}
-                    className={`flex-1 rounded-t transition-all duration-100 ${bgClass}`}
+                    className={`flex-1 transition-none ${array.length > 50 ? '' : 'border-2 border-border'} ${bgClass}`}
                     style={{ height }}
                     title={value.toString()}
                 ></div>
@@ -136,31 +160,34 @@ export const SortingVisualizer: React.FC<SortingVisualizerProps> = ({
         })}
       </div>
       
-      <div className="flex flex-wrap items-center justify-center gap-6 w-full">
-        <div className="flex gap-2">
-            <Button onClick={isSorting ? stop : start}>
-              {isSorting ? '一時停止' : isFinished ? 'もう一度' : '開始'}
-            </Button>
-            <Button variant="secondary" onClick={reset}>
-              リセット
-            </Button>
+      {!hideControls && (
+        <div className="flex flex-wrap items-center justify-center gap-8 w-full mt-4">
+            <div className="flex gap-4">
+                <Button onClick={isSorting ? stop : start} className="w-32">
+                {isSorting ? '一時停止' : isFinished ? 'もう一度' : '開始'}
+                </Button>
+                <Button variant="secondary" onClick={reset} className="w-32">
+                リセット
+                </Button>
+            </div>
+            
+            <div className="flex items-center gap-4 bg-white px-6 py-3 rounded-xl border-2 border-border shadow-[4px_4px_0_0_#000]">
+                <span className="text-sm font-bold">速度</span>
+                <span className="text-xs font-bold">遅</span>
+                <Slider 
+                    min={1} 
+                    max={100} 
+                    step={1} 
+                    value={[localSpeed]} 
+                    onValueChange={(vals) => setLocalSpeed(vals[0])}
+                    className="w-40 cursor-pointer"
+                />
+                <span className="text-xs font-bold">速</span>
+            </div>
         </div>
-        
-        <div className="flex items-center gap-3 bg-white p-3 rounded shadow-sm border border-gray-200">
-            <span className="text-sm font-medium text-gray-700">速度:</span>
-            <span className="text-xs text-gray-500">遅</span>
-            <input 
-                type="range" 
-                min="1" 
-                max="100" 
-                step="1" 
-                value={speedVal} 
-                onChange={(e) => setSpeedVal(Number(e.target.value))}
-                className="w-32 cursor-pointer"
-            />
-            <span className="text-xs text-gray-500">速</span>
-        </div>
-      </div>
+      )}
     </div>
   );
-};
+});
+
+SortingVisualizer.displayName = 'SortingVisualizer';
