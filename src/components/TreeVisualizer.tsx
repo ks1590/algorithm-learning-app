@@ -15,7 +15,7 @@ export function TreeVisualizer({ root, activeNode, visitedNodes }: TreeVisualize
 
   const { nodes, links, totalWidth, totalHeight } = useMemo(() => {
     // 1. Convert to D3 hierarchy
-    const hierarchyRoot = d3.hierarchy(root, (d) => {
+    const initialHierarchy = d3.hierarchy(root, (d) => {
         const children = [];
         if (d.left) children.push(d.left);
         if (d.right) children.push(d.right);
@@ -34,7 +34,7 @@ export function TreeVisualizer({ root, activeNode, visitedNodes }: TreeVisualize
             return a.parent === b.parent ? 1.2 : 1.5; 
         });
     
-    treeLayout(hierarchyRoot);
+    const hierarchyRoot = treeLayout(initialHierarchy);
 
     // 3. Calculate bounds to shift chart into view
     let minX = Infinity;
