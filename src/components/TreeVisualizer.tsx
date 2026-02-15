@@ -72,7 +72,7 @@ export function TreeVisualizer({ root, activeNode, visitedNodes }: TreeVisualize
 
 
   return (
-    <div className="flex justify-center overflow-auto p-4 border rounded-lg min-h-[400px]">
+    <div className="flex justify-center w-full overflow-auto p-4 border rounded-lg min-h-[400px]">
         <svg width={totalWidth} height={totalHeight} viewBox={`0 0 ${totalWidth} ${totalHeight}`}>
             {links.map((link, i) => (
                 <motion.line
