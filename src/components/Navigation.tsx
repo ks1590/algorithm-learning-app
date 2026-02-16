@@ -1,6 +1,4 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Menu } from 'lucide-react';
-import { Button } from "@/components/ui/button";
 
 export function Navigation() {
   const location = useLocation();
