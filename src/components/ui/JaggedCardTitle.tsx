@@ -9,7 +9,7 @@ export function JaggedCardTitle({ children, className, ...props }: JaggedCardTit
   return (
     <div
       className={cn(
-        "relative inline-flex items-center justify-center px-2 py-1 mx-30 bg-white text-black font-bold",
+        "relative inline-flex items-center justify-center px-2 py-1 mx-8 bg-white text-black font-bold",
         className
       )}
       style={{
