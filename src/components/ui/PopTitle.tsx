@@ -9,7 +9,7 @@ export const PopTitle: React.FC = () => {
             <div className="absolute top-0 left-0 w-24 h-24 md:w-48 md:h-48 bg-[#FF6B6B] rounded-full opacity-90 blur-sm animate-pulse-slow" />
             
              {/* Flower Top Right - Marimekko Style */}
-             <svg className="absolute top-10 right-0 w-24 h-24 md:w-32 md:h-32 text-[#FFD23F]" viewBox="0 0 100 100" fill="currentColor" stroke="none">
+             <svg className="absolute top-8 right-14 w-24 h-24 md:w-32 md:h-32 text-[#3DCCC7]" viewBox="0 0 100 100" fill="currentColor" stroke="none">
                {/* Organic Unikko-style petals */}
                <path d="M50 40 C30 10 10 30 25 50 C10 70 30 90 50 80 C70 90 90 70 75 50 C90 30 70 10 50 40 Z" />
                <path d="M50 40 C35 25 20 25 20 45 C20 65 35 75 50 70 C65 75 80 65 80 45 C80 25 65 25 50 40" fill="#FFD23F" />
@@ -23,7 +23,7 @@ export const PopTitle: React.FC = () => {
              <div className="absolute bottom-0 left-10 w-32 h-32 md:w-56 md:h-56 bg-[#FFD23F] rounded-full mix-blend-multiply filter blur-xl opacity-70" />
 
              {/* Star Bottom Right */}
-             <div className="absolute bottom-10 right-10 w-32 h-32 md:w-32 md:h-32 bg-[#FF66C4] clip-polygon-star animate-spin-slow opacity-80" style={{clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)'}} />
+             <div className="absolute bottom-8 right-32 w-32 h-32 md:w-32 md:h-32 bg-[#FF66C4] clip-polygon-star animate-spin-slow opacity-80" style={{clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)'}} />
 
 
             {/* Main Title Container */}
