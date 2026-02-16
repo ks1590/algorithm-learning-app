@@ -1,18 +1,26 @@
 
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { Navigation } from './Navigation';
+import { PopTitle } from './ui/PopTitle';
 
 export function Layout() {
+  const location = useLocation();
+  const isTopPage = location.pathname === '/';
+
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
-      <div className="max-w-7xl mx-auto space-y-8">
-        <header className="text-center space-y-4">
-          <h1 className="text-6xl font-black text-primary tracking-tight">ALGORITHM LEARNING</h1>
-          <div className="flex justify-center mb-4">
-             <Navigation />
-          </div>
-        </header>
-        <Outlet />
+    <div className="min-h-screen bg-background flex flex-col font-sans">
+      <Navigation />
+      
+      <div className="flex-1 w-full max-w-7xl mx-auto px-4 md:px-8 space-y-12 pb-16">
+        {isTopPage && (
+            <header className="text-center pt-8 md:pt-16">
+              <PopTitle />
+            </header>
+        )}
+        
+        <main>
+            <Outlet />
+        </main>
       </div>
     </div>
   );
