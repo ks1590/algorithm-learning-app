@@ -80,7 +80,7 @@ type ComparisonSlot = {
 export const SortingPage: React.FC = () => {
     // ... (State remains unchanged)
   const [selectedAlgo, setSelectedAlgo] = useState<AlgorithmKey>('bubble');
-  const [arraySize, setArraySize] = useState(250);
+  const [arraySize, setArraySize] = useState(100);
   const [initialArray, setInitialArray] = useState<number[]>(() => Array.from({ length: 20 }, () => Math.floor(Math.random() * 95) + 5));
   const [arrayVersion, setArrayVersion] = useState(0);
   const [isComparisonMode, setIsComparisonMode] = useState(false);
@@ -90,6 +90,7 @@ export const SortingPage: React.FC = () => {
   ]);
   const [globalSpeed, setGlobalSpeed] = useState(50);
   const [isRunning, setIsRunning] = useState(false);
+  const [results, setResults] = useState<Record<string, number>>({});
 
   const visualizerRefs = useRef<{ [key: string]: SortingVisualizerHandle | null }>({});
 
@@ -101,6 +102,7 @@ export const SortingPage: React.FC = () => {
     
     Object.values(visualizerRefs.current).forEach(ref => ref?.reset());
     setIsRunning(false);
+    setResults({});
   }, [arraySize]);
 
   useEffect(() => {
@@ -111,7 +113,11 @@ export const SortingPage: React.FC = () => {
   const addSlot = () => {
     if (slots.length >= 3) return;
     const newId = Math.random().toString(36).substr(2, 9);
-    setSlots([...slots, { id: newId, algo: 'bubble' }]);
+    
+    const usedAlgos = slots.map(s => s.algo);
+    const availableAlgo = (Object.keys(ALGORITHMS) as AlgorithmKey[]).find(algo => !usedAlgos.includes(algo)) || 'bubble';
+
+    setSlots([...slots, { id: newId, algo: availableAlgo }]);
   };
 
   const removeSlot = (id: string) => {
@@ -125,6 +131,7 @@ export const SortingPage: React.FC = () => {
   };
 
   const startAll = () => {
+    setResults({});
     Object.values(visualizerRefs.current).forEach(ref => ref?.start());
     setIsRunning(true);
   };
@@ -137,10 +144,55 @@ export const SortingPage: React.FC = () => {
   const resetAll = () => {
     Object.values(visualizerRefs.current).forEach(ref => ref?.reset());
     setIsRunning(false);
+    setResults({});
+  };
+
+  const handleSortFinish = useCallback((id: string, time: number) => {
+    setResults(prev => ({ ...prev, [id]: time }));
+  }, []);
+
+  const getComparisonSummary = () => {
+    if (Object.keys(results).length < 2) return null;
+    
+    // Sort results by time
+    const sortedResults = Object.entries(results)
+        .map(([id, time]) => {
+            const slot = slots.find(s => s.id === id);
+            return {
+                id,
+                algoName: slot ? ALGORITHMS[slot.algo].name.split(' ')[0] : 'Unknown',
+                time
+            };
+        })
+        .sort((a, b) => a.time - b.time);
+
+    if (sortedResults.length < 2) return null;
+
+    const winner = sortedResults[0];
+    const comparisons = sortedResults.slice(1).map(res => {
+        const ratio = (res.time / winner.time).toFixed(1);
+        return `${winner.algoName}は${res.algoName}より約${ratio}倍速いです。`;
+    });
+
+    return (
+        <div className="mt-8 p-6 bg-white rounded-xl border-2 border-border shadow-[4px_4px_0_0_#000]">
+            <h3 className="text-xl font-black mb-4">🏆 結果概要</h3>
+            <div className="space-y-2">
+                <p className="font-bold text-lg text-primary">
+                    最速: {winner.algoName} ({(winner.time / 1000).toFixed(3)}秒)
+                </p>
+                {comparisons.map((comp, idx) => (
+                    <p key={idx} className="text-foreground font-medium">
+                        • {comp}
+                    </p>
+                ))}
+            </div>
+        </div>
+    );
   };
 
   return (
-      <div className={`mx-auto space-y-8 transition-all duration-300 ${isComparisonMode ? 'max-w-[95vw]' : 'max-w-6xl'}`}>
+      <div className={`mx-auto space-y-8 transition-all duration-300 ${isComparisonMode ? 'max-w-[95vw]' : 'max-w-7xl'}`}>
         <header className="text-center space-y-4">
           <div className="flex justify-center items-center gap-4">
              <div className="flex items-center space-x-2 bg-white p-2 rounded-lg border-2 border-border shadow-[4px_4px_0_0_#000]">
@@ -185,11 +237,11 @@ export const SortingPage: React.FC = () => {
                           <label className="block text-sm font-bold text-foreground mb-1">配列のサイズ: {arraySize}</label>
                           <Slider 
                               min={5} 
-                              max={500} 
+                              max={200} 
                               step={5}
                               value={[arraySize]}
                               onValueChange={(vals) => setArraySize(vals[0])}
-                              className="w-full py-4"
+                              className="max-w-[300px] py-4"
                           />
                        </div>
                        <Button onClick={generateArray} variant="secondary" className="whitespace-nowrap h-10 mt-5">
@@ -202,55 +254,64 @@ export const SortingPage: React.FC = () => {
 
           <CardContent className="space-y-6 pt-6 bg-cream">
             {isComparisonMode ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {slots.map((slot) => (
-                        <div key={slot.id} className="flex flex-col gap-4 p-4 bg-white rounded-xl border-2 border-border relative">
-                            <div className="flex justify-between items-center">
-                                <Select 
-                                  value={slot.algo} 
-                                  onValueChange={(value) => updateSlotAlgo(slot.id, value as AlgorithmKey)}
-                                >
-                                  <SelectTrigger className="w-[180px] h-9">
-                                    <SelectValue placeholder="Select Algorithm" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {Object.entries(ALGORITHMS).map(([key, { name }]) => (
-                                      <SelectItem key={key} value={key}>{name}</SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
-                                <Button 
-                                    onClick={() => removeSlot(slot.id)} 
-                                    variant="destructive" 
-                                    size="icon"
-                                    className="h-9 w-9"
-                                    disabled={slots.length <= 1}
-                                >
-                                    <Trash2 className="h-4 w-4" />
+                <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {slots.map((slot) => (
+                            <div key={slot.id} className="flex flex-col gap-4 p-4 bg-white rounded-xl border-2 border-border relative">
+                                <div className="flex justify-between items-center">
+                                    <Select 
+                                    value={slot.algo} 
+                                    onValueChange={(value) => updateSlotAlgo(slot.id, value as AlgorithmKey)}
+                                    >
+                                    <SelectTrigger className="w-[240px] h-9">
+                                        <SelectValue placeholder="Select Algorithm" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {Object.entries(ALGORITHMS).map(([key, { name }]) => {
+                                            const isSelected = slots.some(s => s.algo === key && s.id !== slot.id);
+                                            return (
+                                                <SelectItem key={key} value={key} disabled={isSelected}>
+                                                    {name} {isSelected && '(選択済み)'}
+                                                </SelectItem>
+                                            );
+                                        })}
+                                    </SelectContent>
+                                    </Select>
+                                    <Button 
+                                        onClick={() => removeSlot(slot.id)} 
+                                        variant="destructive" 
+                                        size="icon"
+                                        className="h-9 w-9"
+                                        disabled={slots.length <= 1}
+                                    >
+                                        <Trash2 className="h-4 w-4" />
+                                    </Button>
+                                </div>
+
+                                <SortingVisualizer 
+                                    ref={(el) => { if (el) visualizerRefs.current[slot.id] = el; }}
+                                    key={`${slot.algo}-${arrayVersion}-${slot.id}`}
+                                    algorithm={ALGORITHMS[slot.algo].func}
+                                    initialArray={initialArray}
+                                    algorithmName={ALGORITHMS[slot.algo].name}
+                                    speed={globalSpeed}
+                                    hideControls={true}
+                                    removeShadow={true}
+                                    className="p-0 border-none shadow-none"
+                                    onFinish={(time) => handleSortFinish(slot.id, time)}
+                                />
+                            </div>
+                        ))}
+                        {slots.length < 3 && (
+                            <div className="flex items-center justify-center min-h-[300px] border-2 border-dashed border-border rounded-xl">
+                                <Button onClick={addSlot} variant="ghost" className="h-20 w-20 rounded-full border-2 border-border hover:bg-muted">
+                                    <Plus className="h-10 w-10" />
                                 </Button>
                             </div>
-
-                            <SortingVisualizer 
-                                ref={(el) => { if (el) visualizerRefs.current[slot.id] = el; }}
-                                key={`${slot.algo}-${arrayVersion}-${slot.id}`}
-                                algorithm={ALGORITHMS[slot.algo].func}
-                                initialArray={initialArray}
-                                algorithmName={ALGORITHMS[slot.algo].name}
-                                speed={globalSpeed}
-                                hideControls={true}
-                                removeShadow={true}
-                                className="p-0 border-none shadow-none"
-                            />
-                        </div>
-                    ))}
-                    {slots.length < 3 && (
-                        <div className="flex items-center justify-center min-h-[300px] border-2 border-dashed border-border rounded-xl">
-                            <Button onClick={addSlot} variant="ghost" className="h-20 w-20 rounded-full border-2 border-border hover:bg-muted">
-                                <Plus className="h-10 w-10" />
-                            </Button>
-                        </div>
-                    )}
-                </div>
+                        )}
+                    </div>
+                    {getComparisonSummary()}
+                </>
             ) : (
                 <>
                     <div className="w-full md:w-auto max-w-sm mb-6">

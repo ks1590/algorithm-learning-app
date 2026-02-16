@@ -7,21 +7,26 @@ export function Navigation() {
 
   return (
     <nav className="flex gap-4 p-4 border-b">
-      <Link to="/">
-        <Button variant={location.pathname === '/' ? 'default' : 'outline'}>
-          Sorting
-        </Button>
-      </Link>
-      <Link to="/tree">
-        <Button variant={location.pathname === '/tree' ? 'default' : 'outline'}>
-          Tree
-        </Button>
-      </Link>
-      <Link to="/search">
-        <Button variant={location.pathname === '/search' ? 'default' : 'outline'}>
-          Search
-        </Button>
-      </Link>
+        <Link to="/">
+            <Button variant={location.pathname === '/' ? 'default' : 'outline'}>
+            Top
+            </Button>
+        </Link>
+        <Link to="/sorting">
+            <Button variant={location.pathname === '/sorting' ? 'default' : 'outline'}>
+            Sorting
+            </Button>
+        </Link>
+        <Link to="/tree">
+            <Button variant={location.pathname === '/tree' ? 'default' : 'outline'}>
+            Tree
+            </Button>
+        </Link>
+        <Link to="/search">
+            <Button variant={location.pathname === '/search' ? 'default' : 'outline'}>
+            Search
+            </Button>
+        </Link>
     </nav>
   );
 }
