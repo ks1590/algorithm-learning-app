@@ -1,68 +1,40 @@
+
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowUpDown, Network, Search, ArrowRight, Hash } from 'lucide-react';
+import { Hash, ArrowRight } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { AppColors } from '@/utils/theme';
 
-export const TopPage: React.FC = () => {
+export const MathPage: React.FC = () => {
   const navigate = useNavigate();
 
-  const algorithms = [
+  const mathAlgorithms = [
     {
-      id: 'sorting',
-      title: 'Sorting',
-      description: '並べ替えアルゴリズムを視覚的に学ぶ',
-      icon: ArrowUpDown,
-      path: '/sorting',
-      color: AppColors.primary,
-      accent: 'shadow-[8px_8px_0_0_#FF66C4]',
-      bg: 'bg-white bg-[linear-gradient(to_right,#FF66C4_1px,transparent_1px),linear-gradient(to_bottom,#FF66C4_1px,transparent_1px)] [background-size:20px_20px]'
-    },
-    {
-      id: 'tree',
-      title: 'Tree',
-      description: '木構造の操作と探索を体験する',
-      icon: Network,
-      path: '/tree',
-      color: AppColors.accent,
-      accent: 'shadow-[8px_8px_0_0_#3DCCC7]',
-      bg: 'bg-white bg-[linear-gradient(to_right,#3DCCC7_1px,transparent_1px),linear-gradient(to_bottom,#3DCCC7_1px,transparent_1px)] [background-size:20px_20px]'
-    },
-    {
-      id: 'search',
-      title: 'Search',
-      description: '探索アルゴリズムの仕組みを理解する',
-      icon: Search,
-      path: '/search',
-      color: AppColors.secondary,
-      accent: 'shadow-[8px_8px_0_0_#FFD23F]',
-      bg: 'bg-white bg-[linear-gradient(to_right,#FFD23F_1px,transparent_1px),linear-gradient(to_bottom,#FFD23F_1px,transparent_1px)] [background-size:20px_20px]'
-    },
-    {
-      id: 'math',
-      title: 'Math',
-      description: '数学的なアルゴリズムを学ぶ',
+      id: 'binary-float',
+      title: 'Binary Float',
+      description: '浮動小数点数の仕組みを可視化する',
       icon: Hash,
-      path: '/math',
+      path: '/binary-floating-point', // Keeping the original path as requested, or should it be /math/binary-floating-point? Plan said flat is easier.
       color: AppColors.muted,
       accent: 'shadow-[8px_8px_0_0_#8E9DFF]',
       bg: 'bg-white bg-[linear-gradient(to_right,#8E9DFF_1px,transparent_1px),linear-gradient(to_bottom,#8E9DFF_1px,transparent_1px)] [background-size:20px_20px]'
     }
+    // Future algorithms will be added here
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[64vh] w-full">
+    <div className="container mx-auto py-8 px-4">
       <div className="text-center mb-16 space-y-4">
         <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
-          Choose Your Algorithm
+          Math Algorithms
         </h2>
         <p className="text-xl text-muted-foreground font-medium max-w-3xl mx-auto">
-          視覚的なアニメーションで、アルゴリズムの動作原理を直感的に理解しよう
+          数学的なアルゴリズムを視覚的に学ぼう
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl px-4">
-        {algorithms.map((algo) => (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mx-auto px-4">
+        {mathAlgorithms.map((algo) => (
           <div
             key={algo.id}
             onClick={() => navigate(algo.path)}

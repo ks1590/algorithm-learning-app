@@ -27,6 +27,11 @@ export function Navigation() {
             Search
             </Button>
         </Link>
+        <Link to="/math">
+            <Button variant={location.pathname === '/math' ? 'default' : 'outline'}>
+            Math
+            </Button>
+        </Link>
     </nav>
   );
 }
