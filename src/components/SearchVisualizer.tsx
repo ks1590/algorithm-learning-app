@@ -292,7 +292,7 @@ export function SearchVisualizer() {
                     <div className="p-4 rounded-lg border-2 border-border" style={{ backgroundColor: AppColors.descriptionBox.background }}>
                         <h2 className="font-bold text-foreground mb-2">{SEARCH_ALGORITHMS[algorithm].name}</h2>
                         <p className="text-sm text-foreground mb-4">{SEARCH_ALGORITHMS[algorithm].desc}</p>
-                        <div className="bg-white p-3 rounded border-2 border-border">
+                        <div className="bg-white p-3 rounded-lg border-2 border-border">
                             <h3 className="font-bold text-xs mb-2">手順:</h3>
                             <ol className="list-decimal list-inside text-sm space-y-1">
                                 {SEARCH_ALGORITHMS[algorithm].steps.map((step, idx) => (

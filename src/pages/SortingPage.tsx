@@ -193,6 +193,7 @@ export const SortingPage: React.FC = () => {
 
   return (
       <div className={`mx-auto space-y-8 transition-all duration-300 ${isComparisonMode ? 'max-w-[95vw]' : 'max-w-7xl'}`}>
+        <h1 className="text-3xl font-bold mb-8">ソートアルゴリズム</h1>
         <header className="text-center space-y-4">
           <div className="flex justify-center items-center gap-4">
              <div className="flex items-center space-x-2 bg-white p-2 rounded-lg border-2 border-border shadow-[4px_4px_0_0_#000]">

@@ -164,7 +164,8 @@ export function TreePage() {
 
 
     return (
-        <div className="container mx-auto p-4 space-y-8">
+        <div className="mx-auto space-y-8 max-w-7xl">
+            <h1 className="text-3xl font-bold mb-8">木構造アルゴリズム</h1>
             <Card className="rounded-2xl shadow-[8px_8px_0_0_#000]">
                 <CardHeader className="border-b-2 border-border pb-6">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-6">
