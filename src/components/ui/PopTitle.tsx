@@ -30,13 +30,13 @@ export const PopTitle: React.FC = () => {
             <div className="relative z-10 flex flex-col items-center justify-center gap-2 md:gap-4">
                 
                 {/* Line 1: ALGORITHM */}
-                <h1 className="text-6xl md:text-9xl font-black tracking-tighter text-[#FFD23F] drop-shadow-[4px_4px_0_rgba(0,0,0,1)] transform -rotate-2">
+                <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-[#FFD23F] drop-shadow-[4px_4px_0_rgba(0,0,0,1)] transform -rotate-2">
                     ALGORITHM
                 </h1>
                 
                 {/* Line 2: LEARNING */}
                  <div className="relative">
-                    <h1 className="text-6xl md:text-9xl font-black tracking-tighter text-[#8E9DFF] drop-shadow-[4px_4px_0_rgba(0,0,0,1)] transform rotate-1">
+                    <h1 className="text-7xl md:text-9xl font-black tracking-tighter text-[#8E9DFF] drop-shadow-[4px_4px_0_rgba(0,0,0,1)] transform rotate-1">
                         LEARN<span className="inline-block relative">
                             I
                             {/* Dot on I replacement or decoration? Let's make the 'I' interesting or standard */}
@@ -44,7 +44,7 @@ export const PopTitle: React.FC = () => {
                     </h1>
                      
                      {/* "Start Now" Badge/Sticker */}
-                     <div className="absolute -top-4 -right-4 md:-top-10 md:-right-16 rotate-12 bg-[#FF66C4] text-white font-bold text-xs md:text-xl px-3 py-1 md:px-6 md:py-3 rounded-full border-[3px] md:border-4 border-dotted border-white shadow-[0_0_0_2px_#000,2px_2px_0_2px_#000] md:shadow-[0_0_0_4px_#000,4px_4px_0_4px_#000]">
+                     <div className="absolute -top-4 -right-4 md:-top-10 md:-right-16 rotate-12 bg-[#FF66C4] text-white font-bold text-md md:text-xl px-3 py-1 md:px-6 md:py-3 rounded-full border-[3px] md:border-4 border-dotted border-white shadow-[0_0_0_2px_#000,2px_2px_0_2px_#000] md:shadow-[0_0_0_4px_#000,4px_4px_0_4px_#000]">
                          Let's Start!
                      </div>
                  </div>                 
