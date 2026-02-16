@@ -48,7 +48,11 @@ export const MathPage: React.FC = () => {
                 >
                   <algo.icon className="w-12 h-12 text-black" strokeWidth={2.5} />
                 </div>
-                <CardTitle className="text-3xl font-black tracking-tight">{algo.title}</CardTitle>
+                <CardTitle className="text-3xl font-black tracking-tight relative z-10">
+                  <span className="bg-white px-6 py-2 rounded-xl border-4 border-black shadow-[4px_4px_0_0_#000] inline-block transform rotate-[-2deg] group-hover:rotate-[2deg] transition-all duration-300">
+                    {algo.title}
+                  </span>
+                </CardTitle>
               </CardHeader>
               <CardContent className="p-8 bg-white flex-1 relative min-h-[180px]">
                 <div className="h-full flex items-center justify-center pb-16">
