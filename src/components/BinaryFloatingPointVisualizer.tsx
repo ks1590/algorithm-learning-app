@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-import { floatToBinary, type BinaryFloatingPointData, getExponentValue } from '@/algorithms/math/binary-floating-point';
+import { getExponentValue } from '@/algorithms/math/binary-floating-point';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { useBinaryFloatingPoint } from '@/hooks/useBinaryFloatingPoint';
 
 export const BinaryFloatingPointVisualizer: React.FC = () => {
-  const [numberInput, setNumberInput] = useState<string>('0.15625');
-  const [data, setData] = useState<BinaryFloatingPointData | null>(null);
-
-  useEffect(() => {
-    setData(floatToBinary(numberInput));
-  }, [numberInput]);
+  const { numberInput, setNumberInput, data } = useBinaryFloatingPoint('0.15625');
 
   return (
     <div className="w-full mx-auto space-y-8">
