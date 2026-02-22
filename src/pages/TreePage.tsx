@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
+import { TREE_ALGORITHMS, type TreeAlgorithmKey } from '@/constants/treeAlgorithms';
 import { useTreeAlgorithm } from '@/hooks/useTreeAlgorithm';
 import { AppColors } from '@/utils/theme';
-import { TREE_ALGORITHMS, type TreeAlgorithmKey } from '@/utils/treeAlgorithms';
 
 export function TreePage() {
   const {

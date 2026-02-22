@@ -6,8 +6,8 @@ import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
+import { ALGORITHMS, type AlgorithmKey } from '@/constants/sortingAlgorithms';
 import { useSortingPage } from '@/hooks/useSortingPage';
-import { ALGORITHMS, type AlgorithmKey } from '@/utils/sortingAlgorithms';
 import { AppColors } from '@/utils/theme';
 
 import { SortingVisualizer } from '../components/visualization/SortingVisualizer';

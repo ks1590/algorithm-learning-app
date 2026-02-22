@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
 import { TreeNode } from '@/algorithms/tree/TreeNode';
-import { TREE_ALGORITHMS, type TreeAlgorithmKey } from '@/utils/treeAlgorithms';
+import { TREE_ALGORITHMS, type TreeAlgorithmKey } from '@/constants/treeAlgorithms';
 
 export function useTreeAlgorithm() {
   const [root, setRoot] = useState<TreeNode | null>(null);

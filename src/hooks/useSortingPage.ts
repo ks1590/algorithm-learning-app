@@ -1,7 +1,7 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
 import type { SortingVisualizerHandle } from '@/components/visualization/SortingVisualizer';
-import { ALGORITHMS, type AlgorithmKey } from '@/utils/sortingAlgorithms';
+import { ALGORITHMS, type AlgorithmKey } from '@/constants/sortingAlgorithms';
 
 export type ComparisonSlot = {
   id: string;
