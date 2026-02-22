@@ -61,4 +61,4 @@ function Button({
   );
 }
 
-export { Button, buttonVariants }; // eslint-disable-line react-refresh/only-export-components
+export { Button, buttonVariants };

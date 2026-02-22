@@ -58,7 +58,6 @@ export function useSearchVisualizer() {
 
   useEffect(() => {
     generateArray();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elementCount]);
 
   useEffect(() => {
