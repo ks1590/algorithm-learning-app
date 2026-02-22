@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Hash } from 'lucide-react';
@@ -17,17 +16,15 @@ export const MathPage: React.FC = () => {
       path: '/binary-floating-point', // Keeping the original path as requested, or should it be /math/binary-floating-point? Plan said flat is easier.
       color: AppColors.muted,
       accent: 'shadow-[8px_8px_0_0_#8E9DFF]',
-      bg: 'bg-white bg-[linear-gradient(to_right,#8E9DFF_1px,transparent_1px),linear-gradient(to_bottom,#8E9DFF_1px,transparent_1px)] [background-size:20px_20px]'
-    }
+      bg: 'bg-white bg-[linear-gradient(to_right,#8E9DFF_1px,transparent_1px),linear-gradient(to_bottom,#8E9DFF_1px,transparent_1px)] [background-size:20px_20px]',
+    },
     // Future algorithms will be added here
   ];
 
   return (
     <div className="mx-auto py-8 space-y-8 max-w-7xl">
       <div className="text-center mb-16 space-y-4">
-        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">
-          Math Algorithms
-        </h2>
+        <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight">Math Algorithms</h2>
         <p className="text-xl text-muted-foreground font-medium max-w-3xl mx-auto">
           数学的なアルゴリズムを視覚的に学ぼう
         </p>

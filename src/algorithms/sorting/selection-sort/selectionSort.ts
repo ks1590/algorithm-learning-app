@@ -7,13 +7,13 @@ export function* selectionSort(originalArray: number[]): Generator<AlgorithmStep
 
   for (let i = 0; i < len; i++) {
     let minIdx = i;
-    
+
     // Yield state: starting to find min for position i
     yield {
       array: [...array],
       comparing: [i, minIdx],
       swapping: false,
-      sortedIndices: [...sortedIndices]
+      sortedIndices: [...sortedIndices],
     };
 
     for (let j = i + 1; j < len; j++) {
@@ -21,7 +21,7 @@ export function* selectionSort(originalArray: number[]): Generator<AlgorithmStep
         array: [...array],
         comparing: [minIdx, j],
         swapping: false,
-        sortedIndices: [...sortedIndices]
+        sortedIndices: [...sortedIndices],
       };
 
       if (array[j] < array[minIdx]) {
@@ -31,7 +31,7 @@ export function* selectionSort(originalArray: number[]): Generator<AlgorithmStep
           array: [...array],
           comparing: [minIdx, j], // Highlight new min
           swapping: false,
-          sortedIndices: [...sortedIndices]
+          sortedIndices: [...sortedIndices],
         };
       }
     }
@@ -42,25 +42,25 @@ export function* selectionSort(originalArray: number[]): Generator<AlgorithmStep
         array: [...array],
         comparing: [i, minIdx],
         swapping: true,
-        sortedIndices: [...sortedIndices]
+        sortedIndices: [...sortedIndices],
       };
     }
-    
+
     sortedIndices.push(i);
-    
+
     yield {
-        array: [...array],
-        comparing: [-1, -1],
-        swapping: false,
-        sortedIndices: [...sortedIndices]
-    };
-  }
-  
-  // Final yield
-  yield {
       array: [...array],
       comparing: [-1, -1],
       swapping: false,
-      sortedIndices: Array.from({length: len}, (_, i) => i)
+      sortedIndices: [...sortedIndices],
+    };
+  }
+
+  // Final yield
+  yield {
+    array: [...array],
+    comparing: [-1, -1],
+    swapping: false,
+    sortedIndices: Array.from({ length: len }, (_, i) => i),
   };
 }

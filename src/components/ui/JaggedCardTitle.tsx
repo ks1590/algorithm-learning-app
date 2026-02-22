@@ -9,8 +9,8 @@ export function JaggedCardTitle({ children, className, ...props }: JaggedCardTit
   return (
     <div
       className={cn(
-        "relative inline-flex items-center justify-center px-2 py-1 mx-8 bg-white text-black font-bold",
-        className
+        'relative inline-flex items-center justify-center px-2 py-1 mx-8 bg-white text-black font-bold',
+        className,
       )}
       style={{
         border: '4px solid transparent',
@@ -20,7 +20,7 @@ export function JaggedCardTitle({ children, className, ...props }: JaggedCardTit
         borderImageRepeat: 'round',
         // Fallback for visual weight if border-image fails or to add filled background
         backgroundColor: 'white',
-        boxShadow: '4px 4px 0 0 #000'
+        boxShadow: '4px 4px 0 0 #000',
       }}
       {...props}
     >
