@@ -1,13 +1,12 @@
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { SortingPage } from './pages/SortingPage';
-import { TreePage } from './pages/TreePage';
-import { SearchPage } from './pages/SearchPage';
+
 import { Layout } from './components/Layout';
 import { BinaryFloatingPointPage } from './pages/BinaryFloatingPointPage';
 import { MathPage } from './pages/MathPage';
-
+import { SearchPage } from './pages/SearchPage';
+import { SortingPage } from './pages/SortingPage';
 import { TopPage } from './pages/TopPage';
+import { TreePage } from './pages/TreePage';
 
 function App() {
   return (
@@ -23,7 +22,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,7 +1,6 @@
-
 export class TreeNodeValue {
   value: string | number;
-  constructor(value: string | number) { 
+  constructor(value: string | number) {
     this.value = value;
   }
 
@@ -42,24 +41,24 @@ export class TreeNode {
   }
 
   setLeft(node: TreeNode | null) {
-      if (this.left) {
-          this.left.parent = null;
-      }
-      this.left = node;
-      if (this.left) {
-          this.left.parent = this;
-      }
-      return this;
+    if (this.left) {
+      this.left.parent = null;
+    }
+    this.left = node;
+    if (this.left) {
+      this.left.parent = this;
+    }
+    return this;
   }
 
   setRight(node: TreeNode | null) {
-      if (this.right) {
-          this.right.parent = null;
-      }
-      this.right = node;
-      if (this.right) {
-          this.right.parent = this;
-      }
-      return this;
+    if (this.right) {
+      this.right.parent = null;
+    }
+    this.right = node;
+    if (this.right) {
+      this.right.parent = this;
+    }
+    return this;
   }
 }

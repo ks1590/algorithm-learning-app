@@ -11,7 +11,7 @@ export const AppColors = {
   accent: '#3DCCC7', // Teal
   muted: '#8E9DFF', // Periwinkle
   destructive: '#FF6B6B',
-  
+
   // Specific UI Elements
   descriptionBox: {
     background: '#d9f99d', // Lime Green (Tailwind lime-200 equivalent)
@@ -20,21 +20,21 @@ export const AppColors = {
 
   tree: {
     node: {
-        active: {
-            fill: '#FFD23F',
-            stroke: '#f3c326',
-        },
-        visited: {
-            fill: '#C689D8',
-            stroke: '#9333EA',
-        },
-        default: {
-            fill: '#ffffff',
-            stroke: '#000000',
-        }
+      active: {
+        fill: '#FFD23F',
+        stroke: '#f3c326',
+      },
+      visited: {
+        fill: '#C689D8',
+        stroke: '#9333EA',
+      },
+      default: {
+        fill: '#ffffff',
+        stroke: '#000000',
+      },
     },
     edge: {
-        stroke: 'gray',
-    }
-  }
+      stroke: 'gray',
+    },
+  },
 } as const;

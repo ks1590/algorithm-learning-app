@@ -1,4 +1,3 @@
-
 export interface BinaryFloatingPointData {
   sign: number;
   exponent: string;
@@ -9,12 +8,12 @@ export interface BinaryFloatingPointData {
 export const floatToBinary = (floatStr: string): BinaryFloatingPointData => {
   const float = parseFloat(floatStr);
   if (isNaN(float)) {
-      return {
-          sign: 0,
-          exponent: '00000000',
-          mantissa: '00000000000000000000000',
-          binary: '00000000000000000000000000000000'
-      };
+    return {
+      sign: 0,
+      exponent: '00000000',
+      mantissa: '00000000000000000000000',
+      binary: '00000000000000000000000000000000',
+    };
   }
 
   const buffer = new ArrayBuffer(4);
@@ -35,10 +34,10 @@ export const floatToBinary = (floatStr: string): BinaryFloatingPointData => {
     sign,
     exponent,
     mantissa,
-    binary
+    binary,
   };
 };
 
 export const getExponentValue = (exponentBinary: string): number => {
-    return parseInt(exponentBinary, 2) - 127;
-}
+  return parseInt(exponentBinary, 2) - 127;
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { BinaryFloatingPointVisualizer } from '@/components/BinaryFloatingPointVisualizer';
 
 export const BinaryFloatingPointPage: React.FC = () => {

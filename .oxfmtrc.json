@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "singleQuote": true,
+  "printWidth": 120,
+  "experimentalSortImports": {
+    "newlinesBetween": true,
+    "ignoreCase": true,
+    "order": "asc"
+  }
+}

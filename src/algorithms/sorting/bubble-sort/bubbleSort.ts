@@ -13,7 +13,7 @@ export function* bubbleSort(originalArray: number[]): Generator<AlgorithmStep> {
         array: [...array],
         comparing: [j, j + 1],
         swapping: false,
-        sortedIndices: [...sortedIndices]
+        sortedIndices: [...sortedIndices],
       };
 
       if (array[j] > array[j + 1]) {
@@ -23,30 +23,30 @@ export function* bubbleSort(originalArray: number[]): Generator<AlgorithmStep> {
           array: [...array],
           comparing: [j, j + 1],
           swapping: true,
-          sortedIndices: [...sortedIndices]
+          sortedIndices: [...sortedIndices],
         };
       }
     }
-    
+
     sortedIndices.push(len - 1 - i);
-    
+
     if (!swapped) {
-        // If no swaps were made, the array is sorted.
-        // Add all remaining unsorted indices to sortedIndices
-        for (let k = 0; k < len - i - 1; k++) {
-            if (!sortedIndices.includes(k)) {
-                sortedIndices.push(k);
-            }
+      // If no swaps were made, the array is sorted.
+      // Add all remaining unsorted indices to sortedIndices
+      for (let k = 0; k < len - i - 1; k++) {
+        if (!sortedIndices.includes(k)) {
+          sortedIndices.push(k);
         }
-        break;
+      }
+      break;
     }
   }
-  
+
   // Final yield with all sorted
   yield {
-      array: [...array],
-      comparing: [-1, -1],
-      swapping: false,
-      sortedIndices: Array.from({length: len}, (_, i) => i)
+    array: [...array],
+    comparing: [-1, -1],
+    swapping: false,
+    sortedIndices: Array.from({ length: len }, (_, i) => i),
   };
 }
