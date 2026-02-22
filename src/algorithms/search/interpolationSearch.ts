@@ -11,7 +11,7 @@ export function* interpolationSearch(array: number[], target: number): Generator
   let high = array.length - 1;
 
   while (low <= high && target >= array[low] && target <= array[high]) {
-    // Avoid division by zero if array values are same
+    // 配列の値が同じ場合、ゼロ除算を避ける
     if (low === high) {
       if (array[low] === target) {
         yield { low, high, pos: low, found: true, done: true };

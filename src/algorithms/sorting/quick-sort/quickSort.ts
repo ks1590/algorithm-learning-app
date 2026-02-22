@@ -4,7 +4,7 @@ export function* quickSort(originalArray: number[]): Generator<AlgorithmStep> {
   const array = [...originalArray];
   yield* quickSortRec(array, 0, array.length - 1);
 
-  // Final sorted state
+  // 最終的なソート済み状態
   yield {
     array: [...array],
     comparing: [-1, -1],
@@ -29,7 +29,7 @@ function* partition(array: number[], low: number, high: number): Generator<Algor
   for (let j = low; j < high; j++) {
     yield {
       array: [...array],
-      comparing: [j, high], // compare with pivot
+      comparing: [j, high], // ピボットと比較
       swapping: false,
       sortedIndices: [],
     };

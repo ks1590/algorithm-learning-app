@@ -1,5 +1,5 @@
 export type JumpSearchStep = {
-  index: number; // Current index being checked or jump boundary
+  index: number; // 現在チェックしているインデックス、またはジャンプの境界
   type: 'jump' | 'linear';
   found: boolean;
   done: boolean;
@@ -10,7 +10,7 @@ export function* jumpSearch(array: number[], target: number): Generator<JumpSear
   let step = Math.floor(Math.sqrt(n));
   let prev = 0;
 
-  // Jumping
+  // ジャンプ処理
   while (array[Math.min(step, n) - 1] < target) {
     yield { index: Math.min(step, n) - 1, type: 'jump', found: false, done: false };
     prev = step;
@@ -21,7 +21,7 @@ export function* jumpSearch(array: number[], target: number): Generator<JumpSear
     }
   }
 
-  // Linear search within the block
+  // ブロック内の線形探索
   while (array[prev] < target) {
     yield { index: prev, type: 'linear', found: false, done: false };
     prev++;

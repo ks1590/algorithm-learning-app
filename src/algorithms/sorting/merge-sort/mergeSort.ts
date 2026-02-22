@@ -4,7 +4,7 @@ export function* mergeSort(originalArray: number[]): Generator<AlgorithmStep> {
   const array = [...originalArray];
   yield* mergeSortRec(array, 0, array.length - 1);
 
-  // Final sorted state
+  // 最終的なソート済み状態
   yield {
     array: [...array],
     comparing: [-1, -1],
@@ -41,10 +41,10 @@ function* merge(array: number[], left: number, mid: number, right: number): Gene
   let k = left;
 
   while (i < n1 && j < n2) {
-    // Yield comparison
+    // 比較をyieldする
     yield {
       array: [...array],
-      comparing: [left + i, mid + 1 + j], // Note: this is approximation as index in sorted subarray
+      comparing: [left + i, mid + 1 + j], // 注意：これはソート済み部分配列内のインデックスとしての近似値です
       swapping: false,
       sortedIndices: [],
     };
@@ -57,7 +57,7 @@ function* merge(array: number[], left: number, mid: number, right: number): Gene
       j++;
     }
 
-    // Yield assignment
+    // 代入をyieldする
     yield {
       array: [...array],
       comparing: [k, k],
