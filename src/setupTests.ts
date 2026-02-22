@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import { afterEach } from 'vitest';
 
-// Runs a cleanup after each test case (e.g. clearing jsdom)
+// 各テストケースの後にクリーンアップを実行します（jsdomのクリアなど）
 afterEach(() => {
   cleanup();
 });

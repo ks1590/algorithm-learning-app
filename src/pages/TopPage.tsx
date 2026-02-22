@@ -50,7 +50,7 @@ export const TopPage: React.FC = () => {
       accent: 'shadow-[8px_8px_0_0_#8E9DFF]',
       bg: 'bg-white bg-[linear-gradient(to_right,#8E9DFF_1px,transparent_1px),linear-gradient(to_bottom,#8E9DFF_1px,transparent_1px)] [background-size:20px_20px]',
     },
-    // Placeholder Cards
+    // プレースホルダーのカード
     {
       id: 'coming-soon-1',
       title: 'Coming Soon',

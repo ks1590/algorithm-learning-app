@@ -25,7 +25,7 @@ describe('useTreeLayout', () => {
 
     // 3. Assert
     expect(result.current.nodes).toHaveLength(3);
-    // root (1), left (2), right (3) - 確実な順序はD3依存だが、数は3
+    // root (1), left (2), right (3) - 確実な順序はD3依存だが、数は3つ
 
     // エッジ (links) はノード数 - 1 なので 2本になるはず
     expect(result.current.links).toHaveLength(2);

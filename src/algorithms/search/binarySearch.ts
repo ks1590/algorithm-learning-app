@@ -13,7 +13,7 @@ export function* binarySearch(array: number[], target: number): Generator<Binary
   while (left <= right) {
     const mid = Math.floor((left + right) / 2);
 
-    // Yield current state before checking
+    // チェック前に現在の状態をyieldする
     yield { left, right, mid, found: false, done: false };
 
     if (array[mid] === target) {

@@ -16,8 +16,8 @@ type SortingVisualizerProps = {
   algorithm: SortingAlgorithm;
   initialArray: number[];
   algorithmName: string;
-  speed?: number; // External speed control
-  hideControls?: boolean; // Hide local controls for comparison mode
+  speed?: number; // 外部からの速度制御
+  hideControls?: boolean; // 比較モード用にローカルコントロールを隠す
   className?: string;
   removeShadow?: boolean;
   onFinish?: (elapsedTime: number) => void;
@@ -39,7 +39,7 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
       reset,
     } = useSortingVisualizer(algorithm, initialArray, speed, onFinish);
 
-    // Expose methods to parent
+    // 親コンポーネントにメソッドを公開
     useImperativeHandle(ref, () => ({
       start,
       stop,
@@ -62,13 +62,13 @@ export const SortingVisualizer = forwardRef<SortingVisualizerHandle, SortingVisu
             const isComparing = comparing.includes(idx);
             const isSorted = sortedIndices.includes(idx);
 
-            // Color logic
-            let bgClass = 'bg-muted'; // Periwinkle
+            // 色のロジック
+            let bgClass = 'bg-muted'; // ペリウィンクル
             if (isFinished)
-              bgClass = 'bg-primary'; // Pink
+              bgClass = 'bg-primary'; // ピンク
             else if (isComparing)
-              bgClass = 'bg-secondary'; // Yellow
-            else if (isSorted) bgClass = 'bg-primary'; // Pink
+              bgClass = 'bg-secondary'; // イエロー
+            else if (isSorted) bgClass = 'bg-primary'; // ピンク
 
             const height = `${Math.max(5, (value / Math.max(...initialArray, 1)) * 100)}%`;
 

@@ -8,7 +8,7 @@ export function* selectionSort(originalArray: number[]): Generator<AlgorithmStep
   for (let i = 0; i < len; i++) {
     let minIdx = i;
 
-    // Yield state: starting to find min for position i
+    // 状態をyield: 位置iに対する最小値の探索を開始
     yield {
       array: [...array],
       comparing: [i, minIdx],
@@ -26,10 +26,10 @@ export function* selectionSort(originalArray: number[]): Generator<AlgorithmStep
 
       if (array[j] < array[minIdx]) {
         minIdx = j;
-        // Found new min
+        // 新しい最小値を発見
         yield {
           array: [...array],
-          comparing: [minIdx, j], // Highlight new min
+          comparing: [minIdx, j], // 新しい最小値をハイライト
           swapping: false,
           sortedIndices: [...sortedIndices],
         };
@@ -56,7 +56,7 @@ export function* selectionSort(originalArray: number[]): Generator<AlgorithmStep
     };
   }
 
-  // Final yield
+  // 最終yield
   yield {
     array: [...array],
     comparing: [-1, -1],

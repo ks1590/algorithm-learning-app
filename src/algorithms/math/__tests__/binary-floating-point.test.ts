@@ -7,9 +7,9 @@ describe('binary-floating-point', () => {
     it('正の小数を正しくIEEE 754単精度浮動小数点形式に変換できること (0.15625)', () => {
       const result = floatToBinary('0.15625');
       // 0.15625 = 1.25 * 2^-3
-      // Sign: 0
-      // Exponent: -3 + 127 = 124 (01111100)
-      // Mantissa: 0.25 (01000000000000000000000)
+      // 符号部: 0
+      // 指数部: -3 + 127 = 124 (01111100)
+      // 仮数部: 0.25 (01000000000000000000000)
       expect(result.sign).toBe(0);
       expect(result.exponent).toBe('01111100');
       expect(result.mantissa).toBe('01000000000000000000000');
@@ -19,9 +19,9 @@ describe('binary-floating-point', () => {
     it('負の整数を正しく変換できること (-10)', () => {
       const result = floatToBinary('-10');
       // -10 = -1.25 * 2^3
-      // Sign: 1
-      // Exponent: 3 + 127 = 130 (10000010)
-      // Mantissa: 0.25 (01000000000000000000000)
+      // 符号部: 1
+      // 指数部: 3 + 127 = 130 (10000010)
+      // 仮数部: 0.25 (01000000000000000000000)
       expect(result.sign).toBe(1);
       expect(result.exponent).toBe('10000010');
       expect(result.mantissa).toBe('01000000000000000000000');

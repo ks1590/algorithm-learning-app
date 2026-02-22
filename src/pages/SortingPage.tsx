@@ -41,7 +41,7 @@ export const SortingPage: React.FC = () => {
   const getComparisonSummary = () => {
     if (Object.keys(results).length < 2) return null;
 
-    // Sort results by time
+    // 時間順に結果をソート
     const sortedResults = Object.entries(results)
       .map(([id, time]) => {
         const slot = slots.find((s) => s.id === id);

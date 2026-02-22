@@ -31,8 +31,8 @@ export function* bubbleSort(originalArray: number[]): Generator<AlgorithmStep> {
     sortedIndices.push(len - 1 - i);
 
     if (!swapped) {
-      // If no swaps were made, the array is sorted.
-      // Add all remaining unsorted indices to sortedIndices
+      // スワップが発生しなかった場合、配列はソート済み
+      // 残りの未ソートインデックスをすべて sortedIndices に追加する
       for (let k = 0; k < len - i - 1; k++) {
         if (!sortedIndices.includes(k)) {
           sortedIndices.push(k);
@@ -42,7 +42,7 @@ export function* bubbleSort(originalArray: number[]): Generator<AlgorithmStep> {
     }
   }
 
-  // Final yield with all sorted
+  // すべてソート済みとしての最終yield
   yield {
     array: [...array],
     comparing: [-1, -1],

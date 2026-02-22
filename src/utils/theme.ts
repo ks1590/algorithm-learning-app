@@ -1,20 +1,20 @@
 export const AppColors = {
-  // Base Colors
-  background: '#FFF8E7', // Cream / Light Beige
+  // ベースカラー
+  background: '#FFF8E7', // クリーム / ライトベージュ
   foreground: '#000000',
   white: '#ffffff',
   black: '#000000',
 
-  // Primary Palette
-  primary: '#FF66C4', // Hot Pink
-  secondary: '#FFD23F', // Pop Yellow
-  accent: '#3DCCC7', // Teal
-  muted: '#8E9DFF', // Periwinkle
+  // プライマリパレット
+  primary: '#FF66C4', // ホットピンク
+  secondary: '#FFD23F', // ポップイエロー
+  accent: '#3DCCC7', // ティール
+  muted: '#8E9DFF', // ペリウィンクル
   destructive: '#FF6B6B',
 
-  // Specific UI Elements
+  // 特定のUI要素
   descriptionBox: {
-    background: '#d9f99d', // Lime Green (Tailwind lime-200 equivalent)
+    background: '#d9f99d', // ライムグリーン (Tailwind lime-200 相当)
     border: '#000000',
   },
 

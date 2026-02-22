@@ -4,7 +4,7 @@ import { describe, it, expect } from 'vitest';
 import { floatToBinary } from '@/algorithms/math/binary-floating-point';
 import { useBinaryFloatingPoint } from '@/hooks/useBinaryFloatingPoint';
 
-// We rely on floatToBinary's implementation internally, so we expect the hook to wire parameters correctly
+// 内部的にfloatToBinaryの実装に依存しているため、フックがパラメータを正しく接続することを期待します
 describe('useBinaryFloatingPoint', () => {
   it('デフォルトの初期値で初期化されること', () => {
     const { result } = renderHook(() => useBinaryFloatingPoint());

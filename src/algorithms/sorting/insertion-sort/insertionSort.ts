@@ -3,8 +3,8 @@ import type { AlgorithmStep } from '../../types';
 export function* insertionSort(originalArray: number[]): Generator<AlgorithmStep> {
   const array = [...originalArray];
   const len = array.length;
-  // In insertion sort, the subarray array[0...i-1] is always sorted.
-  // Initially array[0] is sorted.
+  // 挿入ソートでは、部分配列 array[0...i-1] は常にソートされています。
+  // 初期状態では array[0] のみがソート済みと見なされます。
 
   for (let i = 1; i < len; i++) {
     let j = i;
@@ -13,7 +13,7 @@ export function* insertionSort(originalArray: number[]): Generator<AlgorithmStep
       array: [...array],
       comparing: [j, j - 1],
       swapping: false,
-      sortedIndices: Array.from({ length: i }, (_, k) => k), // 0 to i-1 are sorted relative to each other
+      sortedIndices: Array.from({ length: i }, (_, k) => k), // 0 から i-1 までは互いに相対的にソート済み
     };
 
     while (j > 0 && array[j] < array[j - 1]) {
@@ -35,10 +35,10 @@ export function* insertionSort(originalArray: number[]): Generator<AlgorithmStep
 
       j--;
     }
-    // Now 0 to i is relatively sorted
+    // これで 0 から i までが相対的にソートされました
   }
 
-  // Final yield
+  // 最終yield
   yield {
     array: [...array],
     comparing: [-1, -1],

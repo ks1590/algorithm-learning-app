@@ -18,7 +18,7 @@ export const floatToBinary = (floatStr: string): BinaryFloatingPointData => {
 
   const buffer = new ArrayBuffer(4);
   const dataView = new DataView(buffer);
-  dataView.setFloat32(0, float, false); // big-endian
+  dataView.setFloat32(0, float, false); // ビッグエンディアン
 
   let binary = '';
   for (let i = 0; i < 4; i++) {

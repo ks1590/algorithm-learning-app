@@ -39,7 +39,7 @@ describe('useSortingPage', () => {
 
     expect(result.current.slots).toHaveLength(3);
     const algos = result.current.slots.map((s) => s.algo);
-    // Ensure all 3 slots have unique algorithms (if possible from defaults, bubble, quick, and another)
+    // 3つのスロットすべてが異なるアルゴリズムを持つことを確認する（デフォルトのbubble、quick、およびその他のアルゴリズムから可能であれば）
     expect(new Set(algos).size).toBe(3);
   });
 
@@ -47,10 +47,10 @@ describe('useSortingPage', () => {
     const { result } = renderHook(() => useSortingPage());
 
     act(() => {
-      result.current.addSlot(); // 3rd slot
+      result.current.addSlot(); // 3つ目のスロット
     });
     act(() => {
-      result.current.addSlot(); // Shouldn't add 4th
+      result.current.addSlot(); // 4つ目は追加されないはず
     });
 
     expect(result.current.slots).toHaveLength(3);
@@ -78,7 +78,7 @@ describe('useSortingPage', () => {
       result.current.removeSlot(slotId1);
     });
     act(() => {
-      result.current.removeSlot(slotId2); // Trying to remove the last one
+      result.current.removeSlot(slotId2); // 最後の1つを削除しようとする
     });
 
     // 3. Assert
