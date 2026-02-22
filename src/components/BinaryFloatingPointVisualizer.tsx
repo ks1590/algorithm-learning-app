@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+
+import { floatToBinary, type BinaryFloatingPointData, getExponentValue } from '@/algorithms/math/binary-floating-point';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { floatToBinary, type BinaryFloatingPointData, getExponentValue } from '@/algorithms/math/binary-floating-point';
 
 export const BinaryFloatingPointVisualizer: React.FC = () => {
   const [numberInput, setNumberInput] = useState<string>('0.15625');

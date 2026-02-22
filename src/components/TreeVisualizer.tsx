@@ -1,8 +1,10 @@
-import { TreeNode } from '../algorithms/tree/TreeNode';
-import { motion } from 'framer-motion';
 import * as d3 from 'd3-hierarchy';
+import { motion } from 'framer-motion';
 import { useMemo } from 'react';
+
 import { AppColors } from '@/utils/theme';
+
+import { TreeNode } from '../algorithms/tree/TreeNode';
 
 interface TreeVisualizerProps {
   root: TreeNode | null;

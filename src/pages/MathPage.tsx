@@ -1,8 +1,9 @@
+import { Hash } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Hash } from 'lucide-react';
-import { AppColors } from '@/utils/theme';
+
 import { NeoPopCard } from '@/components/ui/NeoPopCard';
+import { AppColors } from '@/utils/theme';
 
 export const MathPage: React.FC = () => {
   const navigate = useNavigate();

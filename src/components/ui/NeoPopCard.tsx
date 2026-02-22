@@ -1,5 +1,5 @@
-import React from 'react';
 import { type LucideIcon, ArrowRight } from 'lucide-react';
+import React from 'react';
 
 interface NeoPopCardProps {
   title: string;

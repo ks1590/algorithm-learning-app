@@ -1,13 +1,14 @@
+import { Play, RotateCcw, StopCircle } from 'lucide-react';
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { TreeNode } from '@/algorithms/tree/TreeNode';
+
 import { bfs } from '@/algorithms/tree/bfs';
 import { dfsInOrder, dfsPreOrder, dfsPostOrder } from '@/algorithms/tree/dfs';
-import { Button } from '@/components/ui/button';
+import { TreeNode } from '@/algorithms/tree/TreeNode';
 import { TreeVisualizer } from '@/components/TreeVisualizer';
+import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
-import { Play, RotateCcw, StopCircle } from 'lucide-react';
 import { AppColors } from '@/utils/theme';
 
 const TREE_ALGORITHMS = {

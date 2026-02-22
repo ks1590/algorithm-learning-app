@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
-import type { AlgorithmStep, SortingAlgorithm } from '../../algorithms/types';
+
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
+
+import type { AlgorithmStep, SortingAlgorithm } from '../../algorithms/types';
 
 export type SortingVisualizerHandle = {
   start: () => void;

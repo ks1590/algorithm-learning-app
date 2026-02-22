@@ -1,20 +1,22 @@
-import { useState, useEffect, useRef } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Slider } from '@/components/ui/slider';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, XCircle, Search } from 'lucide-react';
-import { linearSearch } from '../algorithms/search/linearSearch';
-import type { SearchStep } from '../algorithms/search/linearSearch';
+import { useState, useEffect, useRef } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
+import { AppColors } from '@/utils/theme';
+
 import { binarySearch } from '../algorithms/search/binarySearch';
 import type { BinarySearchStep } from '../algorithms/search/binarySearch';
-import { jumpSearch } from '../algorithms/search/jumpSearch';
-import type { JumpSearchStep } from '../algorithms/search/jumpSearch';
 import { interpolationSearch } from '../algorithms/search/interpolationSearch';
 import type { InterpolationSearchStep } from '../algorithms/search/interpolationSearch';
-import { AppColors } from '@/utils/theme';
+import { jumpSearch } from '../algorithms/search/jumpSearch';
+import type { JumpSearchStep } from '../algorithms/search/jumpSearch';
+import { linearSearch } from '../algorithms/search/linearSearch';
+import type { SearchStep } from '../algorithms/search/linearSearch';
 
 type AlgorithmType = 'linear' | 'binary' | 'jump' | 'interpolation';
 

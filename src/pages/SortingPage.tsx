@@ -1,18 +1,20 @@
+import { Plus, Trash2, Play, RotateCcw, StopCircle } from 'lucide-react';
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { bubbleSort } from '../algorithms/sorting/bubble-sort/bubbleSort';
-import { selectionSort } from '../algorithms/sorting/selection-sort/selectionSort';
-import { insertionSort } from '../algorithms/sorting/insertion-sort/insertionSort';
-import { mergeSort } from '../algorithms/sorting/merge-sort/mergeSort';
-import { quickSort } from '../algorithms/sorting/quick-sort/quickSort';
-import { SortingVisualizer } from '../components/visualization/SortingVisualizer';
-import type { SortingVisualizerHandle } from '../components/visualization/SortingVisualizer';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
-import { Plus, Trash2, Play, RotateCcw, StopCircle } from 'lucide-react';
 import { AppColors } from '@/utils/theme';
+
+import { bubbleSort } from '../algorithms/sorting/bubble-sort/bubbleSort';
+import { insertionSort } from '../algorithms/sorting/insertion-sort/insertionSort';
+import { mergeSort } from '../algorithms/sorting/merge-sort/mergeSort';
+import { quickSort } from '../algorithms/sorting/quick-sort/quickSort';
+import { selectionSort } from '../algorithms/sorting/selection-sort/selectionSort';
+import { SortingVisualizer } from '../components/visualization/SortingVisualizer';
+import type { SortingVisualizerHandle } from '../components/visualization/SortingVisualizer';
 
 const ALGORITHMS = {
   // ... (ALGORITHMS object remains unchanged)
