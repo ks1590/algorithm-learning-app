@@ -1,6 +1,7 @@
 {
   "rules": {
     "correctness": "warn",
-    "suspicious": "warn"
+    "suspicious": "warn",
+    "eslint/no-unused-vars": "error"
   }
 }
