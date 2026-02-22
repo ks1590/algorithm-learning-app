@@ -107,6 +107,7 @@ DRY 原則がうまく適用されたとき、システムに対するいかな�
 ## モダンなテスト設計 (Vitest & React Testing Library)
 
 テストは「将来の変更を容易にするための防壁」です。実装詳細（Stateや内部メソッド）ではなく、**ユーザーの振る舞い（DOMの挙動）**を検証することを最優先します。
+テストケースは日本語で記述してください。
 
 ### 基本原則：アクセシビリティ・ファースト
 
@@ -127,16 +128,13 @@ import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 
 test('ボタンクリックでメッセージが表示され、非同期処理が完了する', async () => {
-  // 1. Arrange
   const user = userEvent.setup();
   const handleAction = vi.fn();
   render(<SubmitButton onSubmit={handleAction} />);
 
-  // 2. Act
   const button = screen.getByRole('button', { name: /送信/i });
   await user.click(button);
 
-  // 3. Assert
   expect(handleAction).toHaveBeenCalledTimes(1);
   expect(await screen.findByText(/完了しました/i)).toBeInTheDocument();
 });
