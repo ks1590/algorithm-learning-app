@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { Layout } from './components/Layout';
 import { BinaryFloatingPointPage } from './pages/BinaryFloatingPointPage';
+import { BitManipulationPage } from './pages/BitManipulationPage';
 import { MathPage } from './pages/MathPage';
 import { SearchPage } from './pages/SearchPage';
 import { SortingPage } from './pages/SortingPage';
@@ -19,6 +20,7 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/math" element={<MathPage />} />
           <Route path="/binary-floating-point" element={<BinaryFloatingPointPage />} />
+          <Route path="/bit-manipulation" element={<BitManipulationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
