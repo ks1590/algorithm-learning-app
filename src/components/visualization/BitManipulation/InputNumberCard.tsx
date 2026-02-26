@@ -34,7 +34,7 @@ export const InputNumberCard: React.FC<InputNumberCardProps> = ({
       </CardHeader>
       <CardContent className="p-4 space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="base-number" className="text-lg font-bold">
+          <Label htmlFor="base-number" className="text-xl font-bold pt-4 block">
             10進数
           </Label>
           <Input
