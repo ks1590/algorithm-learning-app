@@ -19,7 +19,7 @@ export const BinaryFloatingPointVisualizer: React.FC = () => {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex flex-col space-y-2">
-            <label htmlFor="number-input" className="text-lg font-bold">
+            <label htmlFor="number-input" className="text-xl font-bold pt-4">
               10進数
             </label>
             <Input
