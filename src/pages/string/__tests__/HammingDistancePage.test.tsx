@@ -16,17 +16,11 @@ const renderComponent = () => {
 describe('HammingDistancePage', () => {
   test('初期状態でkarolinとkathrinが入力され、計算できる', async () => {
     // Arrange
-    const user = userEvent.setup();
     renderComponent();
-
-    // Act
-    const button = screen.getByRole('button', { name: /計算する/i });
-    await user.click(button);
-
-    // Assert
+    // Assert (Act is automatic on render)
     expect(await screen.findByText(/距離 = 3/i)).toBeInTheDocument();
 
-    const diffBadges = screen.getAllByText('diff');
+    const diffBadges = await screen.findAllByText('diff');
     expect(diffBadges).toHaveLength(3);
   });
 
@@ -43,7 +37,7 @@ describe('HammingDistancePage', () => {
     // Assert
     expect(await screen.findByText('2つの文字列の長さが一致しません')).toBeInTheDocument();
 
-    const button = screen.getByRole('button', { name: /計算する/i });
-    expect(button).toBeDisabled();
+    // Result should be null
+    expect(screen.queryByText(/距離 =/i)).not.toBeInTheDocument();
   });
 });

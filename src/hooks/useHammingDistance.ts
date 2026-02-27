@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import { hammingDistance } from '@/algorithms/string/hammingDistance';
 
@@ -66,12 +66,18 @@ export const useHammingDistance = () => {
     setStringB(val);
     if (stringA.length !== val.length) {
       setError('2つの文字列の長さが一致しません');
+      setSteps([]);
+      setResult(null);
     } else {
       setError(null);
     }
-    setSteps([]);
-    setResult(null);
   };
+
+  useEffect(() => {
+    if (!error && stringA && stringB) {
+      calculate();
+    }
+  }, [stringA, stringB, error, calculate]);
 
   return {
     stringA,

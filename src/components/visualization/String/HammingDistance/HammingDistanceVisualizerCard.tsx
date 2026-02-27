@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { DistanceStep } from '@/hooks/useHammingDistance';
 
@@ -9,7 +8,6 @@ interface HammingDistanceVisualizerCardProps {
   stringB: string;
   steps: DistanceStep[];
   result: number | null;
-  calculate: () => void;
   error: string | null;
 }
 
@@ -18,29 +16,19 @@ export const HammingDistanceVisualizerCard: React.FC<HammingDistanceVisualizerCa
   stringB,
   steps,
   result,
-  calculate,
   error,
 }) => {
   useEffect(() => {
     // 最初のレンダリング時に計算を実行する
     if (!error && steps.length === 0 && stringA && stringB) {
-      calculate();
+      // Auto calc logic handled in hook now, or handle empty state visually.
     }
-  }, [error, steps.length, stringA, stringB, calculate]);
+  }, [error, steps.length, stringA, stringB]);
 
   return (
-    <Card className="flex flex-col h-full overflow-hidden border-2 border-black shadow-[4px_4px_0_0_#000]">
-      <CardHeader className="bg-slate-100 border-b-2 border-black p-4 flex flex-row items-center justify-between shrink-0">
-        <div>
-          <CardTitle className="text-2xl font-bold">視覚化</CardTitle>
-        </div>
-        <Button
-          onClick={calculate}
-          disabled={!!error || !stringA || !stringB}
-          className="bg-black text-white hover:bg-slate-800 font-bold border-2 border-transparent focus:ring-2 focus:ring-offset-2 focus:ring-black"
-        >
-          計算する
-        </Button>
+    <Card className="flex flex-col h-full overflow-hidden pt-0 gap-0 border-2 border-black shadow-[4px_4px_0_0_#000]">
+      <CardHeader className="bg-slate-100 border-b-2 border-black p-4">
+        <CardTitle className="text-2xl font-bold">視覚化</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 p-6 flex flex-col items-center justify-center min-h-[400px] overflow-auto bg-white relative">
         {result !== null && (
@@ -72,7 +60,9 @@ export const HammingDistanceVisualizerCard: React.FC<HammingDistanceVisualizerCa
             ))}
           </div>
           {steps.length === 0 && !error && (
-            <div className="text-center text-muted-foreground font-medium">計算ボタンを押して結果を表示します</div>
+            <div className="text-center text-muted-foreground font-medium">
+              文字列を入力すると、自動的に距離が計算されます
+            </div>
           )}
         </div>
       </CardContent>
