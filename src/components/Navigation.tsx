@@ -9,6 +9,7 @@ export function Navigation() {
     { path: '/tree', label: 'TREE' },
     { path: '/search', label: 'SEARCH' },
     { path: '/math', label: 'MATH' },
+    { path: '/string', label: 'STRING' },
   ];
 
   return (
