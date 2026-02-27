@@ -1,4 +1,4 @@
-import { ArrowUpDown, Network, Search, ArrowRight, Hash, HelpCircle } from 'lucide-react';
+import { ArrowUpDown, Network, Search, ArrowRight, Hash, HelpCircle, Type } from 'lucide-react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -52,14 +52,14 @@ export const TopPage: React.FC = () => {
     },
     // プレースホルダーのカード
     {
-      id: 'coming-soon-1',
-      title: 'Coming Soon',
-      description: '新しいコンテンツを準備中です',
-      icon: HelpCircle,
-      path: '#',
-      color: '#E0E0E0',
-      accent: 'shadow-[8px_8px_0_0_#A0A0A0]',
-      bg: 'bg-white bg-[linear-gradient(to_right,#E0E0E0_1px,transparent_1px),linear-gradient(to_bottom,#E0E0E0_1px,transparent_1px)] [background-size:20px_20px]',
+      id: 'string',
+      title: 'String',
+      description: '文字列アルゴリズムを学ぶ',
+      icon: Type,
+      path: '/string',
+      color: AppColors.destructive,
+      accent: 'shadow-[8px_8px_0_0_#FF6B6B]',
+      bg: 'bg-white bg-[linear-gradient(to_right,#FF6B6B_1px,transparent_1px),linear-gradient(to_bottom,#FF6B6B_1px,transparent_1px)] [background-size:20px_20px]',
     },
     {
       id: 'coming-soon-2',
