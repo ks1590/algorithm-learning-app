@@ -11,4 +11,12 @@ export const STRING_ALGORITHMS = [
     icon: Type,
     color: AppColors.destructive,
   },
+  {
+    id: 'palindrome',
+    title: 'Palindrome',
+    description: '文字列が前から読んでも後ろから読んでも同じ（回文）かを判定する',
+    path: '/string/palindrome',
+    icon: Type,
+    color: AppColors.primary,
+  },
 ];
